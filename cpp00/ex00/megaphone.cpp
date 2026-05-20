@@ -6,7 +6,7 @@
 /*   By: unovo-ru <unovo-ru@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 20:33:24 by unovo-ru          #+#    #+#             */
-/*   Updated: 2026/05/19 20:55:35 by unovo-ru         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:00:53 by unovo-ru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 		for (int i = 1; i < ac; i++)
 			for (int j = 0; av[i][j]; j++)
 				std::cout << (char)toupper(av[i][j]);
-		std::cout << '\n';
+		std::cout << std::endl;
 	}
 	return (0);
 }
