@@ -3,7 +3,7 @@
 
 # include <string>		/*para manejar los strings*/
 # include <iostream>	/*manejar los flujos de entrada y salida*/
-
+# include <iomanip>		/*manejo del espacio del string*/
 class Contact
 {
 	private:

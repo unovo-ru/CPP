@@ -63,3 +63,20 @@ void	Contact::init(void)
 			return ;
 	} while (_darkSecret.empty());
 }
+
+void	Contact::displayShort(int index)
+{
+/*Las Reglas del Subject para la Tabla:
+	1.	Formato de columnas: Debes imprimir el índice, seguido del First Name,
+		Last Name y Nickname.
+	2.	Separadores: Cada campo debe estar separado por un carácter pipe (|).
+	3.	Dimensiones y Alineación: Cada columna debe medir exactamente
+		10 caracteres de ancho y el texto debe estar alineado a la derecha.
+	4.	Truncamiento: Si un nombre tiene más de 10 letras, debes cortarlo,
+		y el décimo carácter que se imprima debe ser
+		obligatoriamente un punto (.).*/
+
+	/*std::cout "_firstName | _lastName | _nickName | _phoneNumber | _darkSecret" << std::setw(10)*/
+
+	std::cout << std::setw(10) << index << "|" << std::setw(10) << _firstName << std::endl;
+}
