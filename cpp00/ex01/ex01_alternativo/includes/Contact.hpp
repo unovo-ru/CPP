@@ -16,6 +16,7 @@ class Contact
 
 	public:
 		Contact();		//este es el constructor para inicializar
+		~Contact();		//este es el destructor
 
 		//SETTERS (aqui se guarda la informacion)
 		void			setFirstName(std::string str);
