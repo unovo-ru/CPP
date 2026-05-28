@@ -5,11 +5,11 @@
 
 Contact::Contact()
 {
-	this->_firstName;
-	this->_lastName;
-	this->_nickName;
-	this->_phoneNumber;
-	this->_darkSecret;
+	this->_firstName = "";			//	|						this->_firstName;
+	this->_lastName = "";			//	|						this->_lastName;
+	this->_nickName = "";			//	|	--> es igual que:	this->_nickName;
+	this->_phoneNumber = "";		//	|						this->_phoneNumber;
+	this->_darkSecret = "";			//	|						this->_darkSecret;
 }
 
 /*IMPLEMENTAMOS LOS SETTERS
