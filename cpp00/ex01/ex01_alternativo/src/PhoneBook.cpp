@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "PhoneBook.hpp"
 
 /*primero llamamos al constructor*/
@@ -17,16 +18,16 @@ PhoneBook::~PhoneBook(){};
 /*metodo declarado para leer de forma segura*/
 std::string		PhoneBook::_getInput(std::string prompt) const
 {
-	str::string	input = "";
+	std::string	input = "";
 
 	do
 	{
-		std::string << prompt;
+		std::cout << prompt;
 		std::getline(std::cin, input);
 		if (std::cin.eof())
 		{
 			std::cout << std::endl;
-			return (NULL);
+			exit (0);
 		}
 	} while (input.empty());
 	return (input);
@@ -61,14 +62,14 @@ void	PhoneBook::addContact(void)
 	//	modificamos el valor de nuestro iterador
 	_i = (_i + 1) % 8;
 	if (_totalContacts < 8)
-		_contact++;
+		_totalContacts++;
 }
 
 void	PhoneBook::_disPlayShort(void)	const
 {
-	std::cout	<< std::setw(10) << "Index" << "|";
-			<< std::setw(10) << "First Name" << "|";
-			<< std::setw(10) << "Last Name" << "|";
+	std::cout	<< std::setw(10) << "Index" << "|"
+			<< std::setw(10) << "First Name" << "|"
+			<< std::setw(10) << "Last Name" << "|"
 			<< std::setw(10) << "NickName" << "|";
 
 	for (int i = 0; i < _totalContacts; i++)
@@ -78,7 +79,7 @@ void	PhoneBook::_disPlayShort(void)	const
 		std::string		first = _contacts[i].getFirstName();
 		std::string		last = _contacts[i].getLastName();
 		std::string		nick = _contacts[i].getNickName();
-		std::string << std::setw(10) << i << "|";
+		std::cout		<< std::setw(10) << i << "|";
 
 		if (first.length() > 10)
 			std::cout		<< std::setw(10) << first.substr(0, 9) + ".";
@@ -93,21 +94,27 @@ void	PhoneBook::_disPlayShort(void)	const
 		std::cout << "|";
 		
 		if (nick.length() > 10)
-			std::cout		<< std::setw(10) << nick.substr(0, 9) + "."
+			std::cout		<< std::setw(10) << nick.substr(0, 9) + ".";
 		else
 			std::cout		<< std::setw(10) << nick;
-		std::cout << "|";
+		std::cout << std::endl;
 	}
 }
+
+/*void	Phonebook::_displayFull(int index)
+{
+
+}*/
 
 void	PhoneBook::searchContact(void)
 {
 	if (_totalContacts == 0)
 	{
-		std::cout "THE PHONEBOOK IS EMPTY";
+		std::cout	<< "THE PHONEBOOK IS EMPTY";
+					<<std::endl;
 		return ;
 	}
 
-
+/*resto del codigo*/
 
 }
