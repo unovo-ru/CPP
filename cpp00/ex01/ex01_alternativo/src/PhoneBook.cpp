@@ -11,8 +11,7 @@ PhoneBook::PhoneBook()
 	_totalContacts = 0;
 
 }
-/*llamamos al destructor*/
-PhoneBook::~PhoneBook(){};
+
 
 
 /*metodo declarado para leer de forma segura*/
@@ -49,15 +48,15 @@ void	PhoneBook::addContact(void)
 	//		de llamar a cada uno de los setters
 
 	input = _getInput("Introduce First Name: ");
-	_contact[_i].setFirstName(input);
+	_contacts[_i].setFirstName(input);
 	input = _getInput("Introduce Last Name: ");
-	_contact[_i].setLastName(input);
+	_contacts[_i].setLastName(input);
 	input = _getInput("Introduce NickName: ");
-	_contact[_i].setNickName(input);
+	_contacts[_i].setNickName(input);
 	input = _getInput("Introduce Phone Number: ");
-	_contact[_i].setPhoneNumber(input);
+	_contacts[_i].setPhoneNumber(input);
 	input = _getInput("Introduce your Darkest Secret: ");
-	_contact[_i].setDarkSecret(input);
+	_contacts[_i].setDarkSecret(input);
 
 	//	modificamos el valor de nuestro iterador
 	_i = (_i + 1) % 8;
@@ -65,12 +64,13 @@ void	PhoneBook::addContact(void)
 		_totalContacts++;
 }
 
-void	PhoneBook::_disPlayShort(void)	const
+void	PhoneBook::_displayShort(void)	const
 {
 	std::cout	<< std::setw(10) << "Index" << "|"
-			<< std::setw(10) << "First Name" << "|"
-			<< std::setw(10) << "Last Name" << "|"
-			<< std::setw(10) << "NickName" << "|";
+				<< std::setw(10) << "First Name" << "|"
+				<< std::setw(10) << "Last Name" << "|"
+				<< std::setw(10) << "NickName" << "|"
+				<< std::endl;
 
 	for (int i = 0; i < _totalContacts; i++)
 	{
@@ -101,20 +101,79 @@ void	PhoneBook::_disPlayShort(void)	const
 	}
 }
 
-/*void	Phonebook::_displayFull(int index)
+void	PhoneBook::_displayFull(int index) const
 {
+	//accedemos al array de _contacts y a la posicion dada por index
+	//a continuacion accedemos a los getters publicos para
+	//sacar la info
 
-}*/
+	std::cout	<< "First Name: " 
+				<< this->_contacts[index].getFirstName()
+				<< std::endl;
+
+	std::cout	<< "Last Name: "
+				<< this->_contacts[index].getLastName()
+				<< std::endl;
+
+	std::cout	<< "NickName: "
+				<< this->_contacts[index].getNickName()
+				<< std::endl;
+
+	std::cout	<< "Phone Number: "
+				<< this->_contacts[index].getPhoneNumber()
+				<< std::endl;
+
+	std::cout	<< "Darkest Secret: "
+				<< this->_contacts[index].getDarkSecret()
+				<< std::endl;
+}
 
 void	PhoneBook::searchContact(void)
 {
 	if (_totalContacts == 0)
 	{
-		std::cout	<< "THE PHONEBOOK IS EMPTY";
+		std::cout	<< "THE PHONEBOOK IS EMPTY"
 					<<std::endl;
 		return ;
 	}
 
-/*resto del codigo*/
+	//aqui llamamos a la funcion privada para mostrar la tabla.
+	this->_displayShort();
 
+	//creamos 2 variables una tipo string para manejar el input que vamos 
+	//a meter y otra para el indice con un valor numerico que sale de este
+	//mismo input
+	std::string	input;
+	int			index;
+
+	while (true)
+	{
+		//llamamos a getInput para que de las instrucciones y guardar
+		//lo que escribamos en la variable input
+		input = _getInput("introduce Index: ");
+
+		//validamos que sea un unico caracter (un numero)
+		//ademas tiene que estar entre 0 y el maximo de contactos permitidos
+		if (input.length() == 1 &&  input[0] >= '0' && input[0] < ('0' + this->_totalContacts))
+		{
+			index = input[0] - '0';
+			this->_displayFull(index);
+			break ;
+		}
+
+		//en caso de que no sea asi lanzamos un mensaje de error
+		else
+		{
+			std::cout	<< "Error: Invalid Index"
+						<< (this->_totalContacts - 1)	// esto es porque tenemos como maximo
+														//8 contactos pero son del 0 -7 asi que imprimimos
+														//en base al numero que deberia tomar al introducirlo
+														//en la agenda (por ejemplo el 6 sera el 5)
+						<< "."
+						<< std::endl;
+		}
+	}
 }
+
+/*llamamos al destructor*/
+PhoneBook::~PhoneBook(){};

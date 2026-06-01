@@ -1,5 +1,5 @@
-#ifndef PHONEBOOK.HPP
-# define PHONEBOOK.HPP
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
 # include "Contact.hpp"
 
@@ -11,9 +11,9 @@ class PhoneBook
 		Contact		_contacts[8];
 
 		//una funcion privada auxiliar para tomar el input
-		sdt::string	_getInput(std::string prompt)	const;
+		std::string	_getInput(std::string prompt)	const;
 		void		_displayShort(void)				const;
-		void		_displayLong(void)				const;
+		void		_displayFull(int index)				const;
 		
 		int			_i;
 		int			_totalContacts;

@@ -96,3 +96,6 @@ std::string		Contact::getDarkSecret(void) const
 {
 	return (_darkSecret);
 }
+
+//llamamos al destructor
+Contact::~Contact(){};
