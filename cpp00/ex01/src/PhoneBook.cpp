@@ -12,12 +12,15 @@ PhoneBook::PhoneBook()
 
 }
 
+/*llamamos al destructor*/
+PhoneBook::~PhoneBook(){};
 
 
 /*metodo declarado para leer de forma segura*/
 std::string		PhoneBook::_getInput(std::string prompt) const
 {
 	std::string	input = "";
+	bool			isAscii = false;
 
 	do
 	{
@@ -28,7 +31,18 @@ std::string		PhoneBook::_getInput(std::string prompt) const
 			std::cout << std::endl;
 			exit (0);
 		}
-	} while (input.empty());
+		isAscii = true;
+		for (size_t i = 0; i < input.length(); i++)
+		{
+			if ((unsigned char)input[i] > 127)
+			{
+				std::cout	<< "Error, invalid Input"
+							<< std::endl;
+				isAscii = false;
+				break ;
+			}
+		}
+	} while (input.empty() || !isAscii);
 	return (input);
 }
 
@@ -174,6 +188,3 @@ void	PhoneBook::searchContact(void)
 		}
 	}
 }
-
-/*llamamos al destructor*/
-PhoneBook::~PhoneBook(){};
