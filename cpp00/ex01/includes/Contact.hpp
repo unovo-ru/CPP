@@ -26,11 +26,11 @@ class Contact
 		void			setDarkSecret(std::string str);
 
 		//GETTERS (aqui solo leemos la informacion)
-		std::string		getFirstName(void) const;	//		|
-		std::string		getLastName(void) const;	//		|
-		std::string		getNickName(void) const;	//		|--> el const es para garantizar que no 
-		std::string		getPhoneNumber(void) const;	//		|	modificaremos la informacion (solo lee)
-		std::string		getDarkSecret(void) const;	//		|
+		std::string		getFirstName(void)		const;	//		|
+		std::string		getLastName(void)		const;	//		|
+		std::string		getNickName(void)		const;	//		|--> el const es para garantizar que no 
+		std::string		getPhoneNumber(void)	const;	//		|	modificaremos la informacion (solo lee)
+		std::string		getDarkSecret(void)		const;	//		|
 };
 
 #endif
