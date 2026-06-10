@@ -34,7 +34,7 @@ std::string		PhoneBook::_getInput(std::string prompt) const
 		isAscii = true;
 		for (size_t i = 0; i < input.length(); i++)
 		{
-			if ((unsigned char)input[i] > 127)
+			if ((unsigned char)input[i] > 127 || (unsigned char)input[i] == '\t')
 			{
 				std::cout	<< "Error, invalid Input"
 							<< std::endl;
@@ -111,7 +111,8 @@ void	PhoneBook::_displayShort(void)	const
 			std::cout		<< std::setw(10) << nick.substr(0, 9) + ".";
 		else
 			std::cout		<< std::setw(10) << nick;
-		std::cout << std::endl;
+		std::cout	<< "|"
+					<< std::endl;
 	}
 }
 
