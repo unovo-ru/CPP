@@ -38,17 +38,17 @@ public:
 
 private:
 
-	static int	_nbAccounts;
-	static int	_totalAmount;
-	static int	_totalNbDeposits;
-	static int	_totalNbWithdrawals;
+	static int	_nbAccounts;			// El número total de cuentas que existen en el banco
+	static int	_totalAmount;			// La suma de todo el dinero de todos los clientes juntos
+	static int	_totalNbDeposits;		// El total de ingresos
+	static int	_totalNbWithdrawals;	// El total de retiradas
 
 	static void	_displayTimestamp( void );
 
-	int				_accountIndex;
-	int				_amount;
-	int				_nbDeposits;
-	int				_nbWithdrawals;
+	int				_accountIndex;		// El número de identificación de esa cuenta concreta
+	int				_amount;			// El dinero que tiene ese cliente en su cuenta
+	int				_nbDeposits;		// Cuántos ingresos ha hecho este cliente
+	int				_nbWithdrawals;		// Cuántas retiradas de dinero ha hecho este cliente
 
 	Account( void );
 
