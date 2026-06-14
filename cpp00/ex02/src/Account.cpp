@@ -1,5 +1,6 @@
 #include "Account.hpp"
 #include <iostream>
+#include <ctime>
 
 void	Account::_displayTimestamp(void)
 {
@@ -69,6 +70,41 @@ Account::Account(int initialDeposit)
 				<< "amount:" << _amount << ";"
 				<< "created"
 				<< std::endl;
-	
+}
+
+//A CONTINUACION LOS GETTERS
+
+int	Account::getNbAccounts( void )
+{
+	return (_nbAccounts);
+}
+int	Account::getTotalAmount( void )
+{
+	return (_totalAmount);
+}
+int	Account::getNbDeposits( void )
+{
+	return (_totalNbDeposits);
+}
+int	Account::getNbWithdrawals( void )
+{
+	return (_totalNbWithdrawals);
+}
+
+
+//LA SIGUIENTES FUNCIONES QUE APARECEN EN EL MAIN
+
+void	Account::displayAccountsInfos(void)
+{
+	_displayTimestamp();
+	std::cout	<< "accounts:" << _nbAccounts << ";"
+				<< "total:" << _totalAmount << ";"
+				<< "deposits:" << _totalNbDeposits << ";"
+				<< "withdrawals:" << _totalNbWithdrawals
+				<< std::endl;
+}
+
+void	Account::makeDeposit( int deposit )
+{
 	
 }
