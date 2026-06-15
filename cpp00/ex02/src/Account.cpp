@@ -2,6 +2,26 @@
 #include <iostream>
 #include <ctime>
 
+
+//ESTAS VARIABLES SE INICIALIZAN FUERA DEL CONSTRUCTOR
+//PORQUE SOLO SE CREAN UNA VEZ, LAS OTRAS SE CREAN UNA VEZ POR
+//CADA CLIENTE NUEVO CON UN INITIALDEPOSIT
+
+//SON GENERALES Y NO SE CREAN NI TIENEN VALORES INDEPENDIENTES
+//DE UNA CUENTA A OTRA COMO SI PUEDE PASAR CON LOS DEPOSITOS 
+//QUE SE HACEN EN LA CUENTA (POR ESO SON STATIC)
+
+/*el static en las variables de una clase significan que son unicas
+para la clase, del hpp, no por cada una de los objetos, esto quiere decir 
+que si creo en total 8 accounts, cada una con su propio index, depositos,
+retiradas... etc, sigue existiendo una sola variable que pertenece a la
+clase y se encarga de saber cual es el numero total de cuentas (_nbAccounts)*/
+
+int	Account::_nbAccounts = 0;
+int	Account::_totalAmount = 0;
+int	Account::_totalNbDeposits = 0;
+int	Account::_totalNbWithdrawals = 0;
+
 void	Account::_displayTimestamp(void)
 {
 	//calculamos el tiempo con la funcion time
@@ -44,6 +64,7 @@ Account::Account(int initialDeposit)
 	/*tras esto hay que sumar uno al numero de cuentas totales que hay ene l banco*/
 	_nbAccounts++;
 
+	
 
 	/*A CONTINUACION VA LO QUE SERIA EL PRIMER
 	BLOQUE DEL LOG:
@@ -69,6 +90,16 @@ Account::Account(int initialDeposit)
 	std::cout	<< "index:" << _accountIndex << ";"
 				<< "amount:" << _amount << ";"
 				<< "created"
+				<< std::endl;
+}
+
+//DESTRUCTOR
+Account::~Account()
+{
+	_displayTimestamp();
+	std::cout	<< "index:" << _accountIndex << ";"
+				<< "amount:" << _amount << ";"
+				<< "closed"
 				<< std::endl;
 }
 
@@ -104,7 +135,59 @@ void	Account::displayAccountsInfos(void)
 				<< std::endl;
 }
 
+void	Account::displayStatus( void ) const
+{
+	_displayTimestamp();
+	std::cout	<< "index:" << _accountIndex << ";"
+				<< "amount:" << _amount << ";"
+				<< "deposits:" << _nbDeposits << ";"
+				<< "withdrawals:" << _nbWithdrawals
+				<< std::endl;
+}
+
 void	Account::makeDeposit( int deposit )
 {
-	
+	_displayTimestamp();
+	std::cout	<< "index:" << _accountIndex << ";"
+				<< "p_amount:" << _amount << ";"
+				<< "deposit:" << deposit << ";"
+				<< "amount:" << _amount + deposit << ";"
+				<< "nb_deposits:" << _nbDeposits + 1
+				<< std::endl;
+	_amount += deposit;
+	_totalAmount += deposit;
+	_nbDeposits++;
+	_totalNbDeposits++;
+}
+
+bool	Account::makeWithdrawal(int withdrawal)
+{
+	_displayTimestamp();
+	if (checkAmount() >= withdrawal)
+	{
+		std::cout	<< "index:" << _accountIndex << ";"
+					<< "p_amount:" << _amount << ";"
+					<< "withdrawal:" << withdrawal << ";"
+					<< "amount:" << _amount - withdrawal << ";"
+					<< "nb_withdrawals:" << _nbWithdrawals + 1
+					<< std::endl;
+		_amount -= withdrawal;
+		_totalAmount -= withdrawal;
+		_totalNbWithdrawals++;
+		_nbWithdrawals++;
+		return (true);
+	}
+	else
+	{
+		std::cout	<< "index:" << _accountIndex << ";"
+					<< "p_amount:" << _amount << ";"
+					<< "withdrawal:" << "refused" 
+					<< std::endl;
+		return (false);
+	}
+}
+
+int	Account::checkAmount(void) const
+{
+	return (_amount);
 }
