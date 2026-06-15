@@ -70,10 +70,6 @@ Account::Account(int initialDeposit)
 				<< "amount:" << _amount << ";"
 				<< "created"
 				<< std::endl;
-<<<<<<< HEAD
-
-	
-=======
 }
 
 //A CONTINUACION LOS GETTERS
@@ -110,6 +106,5 @@ void	Account::displayAccountsInfos(void)
 
 void	Account::makeDeposit( int deposit )
 {
->>>>>>> 4c0182ad979c5d4c2651c13fc4a967e7e4316ed4
 	
 }
