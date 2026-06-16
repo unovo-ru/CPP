@@ -1,4 +1,4 @@
-NAME		= zombie_party
+NAME		= zombie
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
