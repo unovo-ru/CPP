@@ -1,17 +1,16 @@
-NAME		= zombie_party
+NAME		= brain
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 SRC_DIR		= src
 OBJ_DIR		= obj
-INC_DIR		= includes
+# INC_DIR		= includes
 
-CXXFLAGS	+= -I$(INC_DIR)
+# CXXFLAGS	+= -I$(INC_DIR)
 
 SRC_FILES	=	main.cpp \
-				Zombie.cpp \
-				zombieHorde.cpp \
+
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))
