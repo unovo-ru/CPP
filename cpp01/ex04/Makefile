@@ -10,6 +10,7 @@ INC_DIR		= includes
 CXXFLAGS	+= -I$(INC_DIR)
 
 SRC_FILES	=	main.cpp \
+				File.cpp \
 				
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

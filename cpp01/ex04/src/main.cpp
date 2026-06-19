@@ -6,7 +6,7 @@ int	main(int ac, char **av)
 	{
 		std::cout	<< "Error, invalid arguments."
 					<< std::endl;
-		return (0);
+		return (1);
 	}
 	
 	/*para este ejercicio vamos a usar estos 4 metodos:
@@ -45,5 +45,8 @@ int	main(int ac, char **av)
 			*/
 			
 	File	file(av[1], av[2], av[3]);
-	int	fd;
+	file.replace();
+	std::cout	<< av[1]
+				<< std::endl;
+	return (0);
 }
