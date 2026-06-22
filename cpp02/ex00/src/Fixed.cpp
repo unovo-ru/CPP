@@ -1,5 +1,7 @@
 #include "Fixed.hpp"
 
+const int Fixed::_fractionalBits = 8;
+
 /*CONSTRUCTOR DEFAULT*/
 Fixed::Fixed() : _fixedPointValue(0)
 {

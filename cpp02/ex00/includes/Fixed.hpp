@@ -25,7 +25,7 @@ class Fixed
 	private:
 
 		int					_fixedPointValue;		//guarda el valor del numero en punto fijo.
-		static const int	_fractionalBits = 8;;	//guarda el numero de bits fraccionados
+		static const int	_fractionalBits ;		//guarda el numero de bits fraccionados
 													//(siempre sera 8).
 
 	public:
