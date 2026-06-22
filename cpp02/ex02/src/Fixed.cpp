@@ -102,3 +102,73 @@ std::ostream &operator<<(std::ostream &os, Fixed const &obj)
 	return (os);
 }
 
+
+
+/*NUEVOS OPERADORES*/
+/*OPERADOR DE ASIGNACION*/
+
+
+
+bool Fixed::operator>(const Fixed &other) const
+{
+	return (_fixedPointValue > other._fixedPointValue);
+}
+
+/*		es lo mismo que:
+
+bool Fixed::operator>(const Fixed &other) const
+{
+	if (_fixedPointValue > other._fixedPointValue)
+		return (true);
+	return (flase);
+
+}*/
+
+
+
+bool	Fixed::operator<(const Fixed &other) const
+{
+	return (_fixedPointValue < other._fixedPointValue);
+}
+
+bool	Fixed::operator<=(const Fixed &other) const
+{
+	return (_fixedPointValue <= other._fixedPointValue);
+}
+
+bool	Fixed::operator>=(const Fixed &other) const
+{
+	return (_fixedPointValue >= other._fixedPointValue);
+}
+
+bool	Fixed::operator==(const Fixed &other) const
+{
+	return (_fixedPointValue == other._fixedPointValue);
+}
+
+bool	Fixed::operator!=(const Fixed &other) const
+{
+	return (_fixedPointValue != other._fixedPointValue);
+}
+
+
+
+/*OPERADORES DE OPERACIONES MATEMATICAS:*/
+
+Fixed	Fixed::operator+(const Fixed &other) const
+{
+	Fixed	result;
+	result = th
+}
+Fixed	Fixed::operator-(const Fixed &other) const
+{
+	
+}
+Fixed	Fixed::operator/(const Fixed &other) const
+{
+	
+}
+Fixed	Fixed::operator*(const Fixed &other) const
+{
+	
+}
