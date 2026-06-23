@@ -186,12 +186,15 @@ Fixed	Fixed::operator*(const Fixed &other) const
 
 Fixed & Fixed::operator--(void)
 {
-	
+	this->_fixedPointValue++;
+	return (*this);
 }
 
 Fixed & Fixed::operator++(void)
 {
-	
+	Fixed	a;
+	a.getRawBits() + 1;
+	return (a);
 }
 
 Fixed & Fixed::operator--(int)
