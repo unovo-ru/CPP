@@ -56,6 +56,15 @@ class Fixed
 										//Este int no sirve para pasarle ningún número, es solo una bandera
 				/*ints como flags*/		//(un "flag") para decirle al compilador: "Oye, que este es el post-incremento".
 
+
+			/*el static permite poder llamarlas sin crear un objeto:
+			en tu main podrás usarlas sin necesidad de aplicarlas sobre una variable,
+			llamándolas directamente así: Fixed::max(a, b).*/
+			static const Fixed& min(const Fixed &a, const Fixed &b);
+			static const Fixed& max(const Fixed &a, const Fixed &b);
+			static Fixed & min(Fixed &a, Fixed &b);
+			static Fixed & max(Fixed &a, Fixed &b);
+
 };
 
 std::ostream &operator<<(std::ostream &os, Fixed const &obj);

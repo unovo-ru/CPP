@@ -96,10 +96,10 @@ float	Fixed::toFloat(void) const
 }
 
 /*FUNCION DE RESOLUCION DEL OPERADOR*/
-std::ostream &operator<<(std::ostream &os, Fixed const &obj)
+std::ostream &operator<<(std::ostream &outputScreen, Fixed const &obj)
 {
-	os << obj.toFloat();
-	return (os);
+	outputScreen << obj.toFloat();
+	return (outputScreen);
 }
 
 
@@ -172,37 +172,61 @@ Fixed	Fixed::operator-(const Fixed &other) const
 
 Fixed	Fixed::operator/(const Fixed &other) const
 {
-	Fixed	result;
-	result.setRawBits(toFloat() / other.toFloat());
-	return (result);
+	if (other._fixedPointValue == 0)
+		return (std::cerr << "Error, no valid calc" << std::endl, Fixed(0));
+	return (Fixed(toFloat() / other.toFloat()));
 }
 
 Fixed	Fixed::operator*(const Fixed &other) const
 {
-	Fixed	result;
-	result.setRawBits(toFloat() * other.toFloat());
-	return (result);
+	return (Fixed(toFloat() * other.toFloat()));
 }
 
-Fixed & Fixed::operator--(void)
+Fixed & Fixed::operator++(void)
 {
 	this->_fixedPointValue++;
 	return (*this);
 }
 
-Fixed & Fixed::operator++(void)
+Fixed & Fixed::operator--(void)
 {
-	Fixed	a;
-	a.getRawBits() + 1;
-	return (a);
-}
-
-Fixed & Fixed::operator--(int)
-{
-	
+	this->_fixedPointValue--;
+	return (*this);
 }
 
 Fixed & Fixed::operator++(int)
 {
-	
+	Fixed	*i = this;
+	this->_fixedPointValue++;
+	return (*i);
 }
+
+Fixed & Fixed::operator--(int)
+{
+	Fixed	*i = this;
+	this->_fixedPointValue--;
+	return (*i);
+}
+
+//USO DE TERNARIOS PARA COMPROBACION Y RETURN
+const Fixed& Fixed::min(const Fixed &a, const Fixed &b)
+{
+	return (a > b ? b : a);
+}
+
+const Fixed& Fixed::max(const Fixed &a, const Fixed &b)
+{
+	return (a > b ? a : b);
+}
+
+Fixed& Fixed::min(Fixed &a, Fixed &b)
+{
+	return (a > b ? b : a);
+}
+
+Fixed& Fixed::max(Fixed &a, Fixed &b)
+{
+	return (a > b ? a : b);
+}
+
+
