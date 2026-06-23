@@ -158,17 +158,48 @@ bool	Fixed::operator!=(const Fixed &other) const
 Fixed	Fixed::operator+(const Fixed &other) const
 {
 	Fixed	result;
-	result = th
+	result.setRawBits(_fixedPointValue + other._fixedPointValue);
+	return (result);
 }
+
 Fixed	Fixed::operator-(const Fixed &other) const
 {
-	
+	Fixed	result;
+	result.setRawBits(_fixedPointValue - other._fixedPointValue);
+	return (result);
+
 }
+
 Fixed	Fixed::operator/(const Fixed &other) const
+{
+	Fixed	result;
+	result.setRawBits(toFloat() / other.toFloat());
+	return (result);
+}
+
+Fixed	Fixed::operator*(const Fixed &other) const
+{
+	Fixed	result;
+	result.setRawBits(toFloat() * other.toFloat());
+	return (result);
+}
+
+Fixed & Fixed::operator--(void)
 {
 	
 }
-Fixed	Fixed::operator*(const Fixed &other) const
+
+Fixed & Fixed::operator++(void)
+{
+	
+}
+
+Fixed & Fixed::operator--(int)
+{
+	
+}
+
+Fixed & Fixed::operator++(int)
 {
 	
 }
