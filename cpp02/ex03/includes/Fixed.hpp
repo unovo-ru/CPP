@@ -48,11 +48,11 @@ class Fixed
 			Fixed	operator/(const Fixed &other)const;			//
 			Fixed	operator*(const Fixed &other)const;			//
 
-			Fixed & operator--(void);	// los pre trabajan con void porque modifican
-			Fixed & operator++(void);	// el objeto actual y lo devuelven por referencia
+			Fixed& operator--(void);	// los pre trabajan con void porque modifican
+			Fixed& operator++(void);	// el objeto actual y lo devuelven por referencia
 
-			Fixed & operator--(int);	//Para diferenciarlos de los anteriores, 
-			Fixed & operator++(int);	//C++ exige que añadas un parámetro ficticio de tipo int en los paréntesis. 
+			Fixed& operator--(int);	//Para diferenciarlos de los anteriores, 
+			Fixed& operator++(int);	//C++ exige que añadas un parámetro ficticio de tipo int en los paréntesis. 
 										//Este int no sirve para pasarle ningún número, es solo una bandera
 				/*ints como flags*/		//(un "flag") para decirle al compilador: "Oye, que este es el post-incremento".
 

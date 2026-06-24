@@ -182,26 +182,26 @@ Fixed	Fixed::operator*(const Fixed &other) const
 	return (Fixed(toFloat() * other.toFloat()));
 }
 
-Fixed & Fixed::operator++(void)
+Fixed& Fixed::operator++(void)
 {
 	this->_fixedPointValue++;
 	return (*this);
 }
 
-Fixed & Fixed::operator--(void)
+Fixed& Fixed::operator--(void)
 {
 	this->_fixedPointValue--;
 	return (*this);
 }
 
-Fixed & Fixed::operator++(int)
+Fixed& Fixed::operator++(int)
 {
 	Fixed	*i = this;
 	this->_fixedPointValue++;
 	return (*i);
 }
 
-Fixed & Fixed::operator--(int)
+Fixed& Fixed::operator--(int)
 {
 	Fixed	*i = this;
 	this->_fixedPointValue--;
