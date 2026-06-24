@@ -8,8 +8,8 @@ Point::Point(const Point &src) : _x(src._x), _y(src._y){}
 
 Point::~Point()
 {
-	std::cout	<< "Destructor called"
-				<< std::endl;
+	// std::cout	<< "Destructor called"
+				// << std::endl;
 }
 
 Point& Point::operator=(Point const &rhs)

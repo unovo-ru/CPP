@@ -5,15 +5,15 @@ const int Fixed::_fractionalBits = 8;
 /*CONSTRUCTOR DEFAULT*/
 Fixed::Fixed() : _fixedPointValue(0)
 {
-	std::cout	<< "Default constructor called"
-				<< std::endl;
+	// std::cout	<< "Default constructor called"
+	// 			<< std::endl;
 }
 
 /*DESTRUCTOR*/
 Fixed::~Fixed()
 {
-	std::cout	<< "Destructor called"
-				<< std::endl;
+	// std::cout	<< "Destructor called"
+	// 			<< std::endl;
 }
 
 /*SETTER*/
@@ -25,38 +25,38 @@ void	Fixed::setRawBits(const int raw)
 /*GETTER*/
 int	Fixed::getRawBits(void) const
 {
-	std::cout	<< "getRawBits member function called"
-				<< std::endl;
+	// std::cout	<< "getRawBits member function called"
+	// 			<< std::endl;
 	return (_fixedPointValue);
 }
 
 /*CONSTRUCTOR DE COPIA*/
 Fixed::Fixed(const Fixed &other) : _fixedPointValue(other._fixedPointValue)
 {
-	std::cout	<< "Copy constructor called"
-				<< std::endl;
+	// std::cout	<< "Copy constructor called"
+	// 			<< std::endl;
 }
 
 /*CONSTRUCTOR DE INT*/
 Fixed::Fixed(int const raw) : _fixedPointValue(raw << _fractionalBits)
 {
-	std::cout	<< "Int constructor called"
-				<< std::endl;
+	// std::cout	<< "Int constructor called"
+				// << std::endl;
 }
 
 /*CONSTRUCTOR DE FLOAT*/
 Fixed::Fixed(float const dec) : _fixedPointValue(roundf(dec * 256.0f))
 {
-	std::cout	<< "Float constructor called"
-				<< std::endl;
+	// std::cout	<< "Float constructor called"
+				// << std::endl;
 }
 
 
 /*OPERADOR DE ASIGNACION*/
 Fixed & Fixed ::operator=(const Fixed &other)
 {
-	std::cout	<< "Copy assignment operator called"
-				<< std::endl;
+	// std::cout	<< "Copy assignment operator called"
+				// << std::endl;
 	
 	if (this == &other)
 		return (*this);
