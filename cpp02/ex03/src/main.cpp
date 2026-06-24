@@ -2,18 +2,17 @@
 
 int main(void)
 {
-	// Creamos un triángulo equilátero/isósceles simple
 	Point const a(0.0f, 0.0f);
 	Point const b(10.0f, 0.0f);
 	Point const c(5.0f, 10.0f);
 
-	// Caso 1: Un punto claramente en el centro del triángulo
+	//Caso 1:
 	Point const into(5.0f, 3.0f);
-	
-	// Caso 2: Un punto completamente in
+
+	//Caso 2:
 	Point const	out(12.0f, 5.0f);
-	
-	// Caso 3: Un punto posado JUSTO en la línea de la base (y = 0)
+
+	//Caso 3:
 	Point const	inLine(5.0f, 0.0f);
 
 	std::cout	<< "Punto into (esperado: 1): "
