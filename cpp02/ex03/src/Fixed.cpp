@@ -53,7 +53,7 @@ Fixed::Fixed(float const dec) : _fixedPointValue(roundf(dec * 256.0f))
 
 
 /*OPERADOR DE ASIGNACION*/
-Fixed & Fixed ::operator=(const Fixed &other)
+Fixed& Fixed::operator=(const Fixed &other)
 {
 	// std::cout	<< "Copy assignment operator called"
 				// << std::endl;
