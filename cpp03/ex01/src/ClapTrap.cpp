@@ -28,20 +28,6 @@ _energyPoints(other._energyPoints), _attackDamage(other._attackDamage)
 }
 ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 {
-	/*this es un puntero al objeto actual, o sea su tipo es ClapTrap*.
-	Cuando el compilador ve return (*this) y el tipo de retorno es ClapTrap&,
-	lo que ocurre es:
-
-	*this → desreferencias el puntero, obtienes el objeto en sí
-	El compilador lo recibe como ClapTrap& porque eso dice el tipo de
-	retorno → automáticamente lo trata como referencia, no hace copia
-	
-	Es decir, *this te da el objeto, y el & del tipo de retorno le dice al compilador
-	"devuelve esto como referencia, no copies nada".
-
-	Si el tipo de retorno fuera ClapTrap sin &, sí haría una copia.
-	El & en el tipo de retorno es lo que evita eso.*/
-
 	if (this == &other)
 		return (*this);
 	_name = other._name;
