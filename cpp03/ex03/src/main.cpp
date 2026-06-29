@@ -1,4 +1,4 @@
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int	main()
 {
@@ -16,18 +16,27 @@ int	main()
 		ScavTrap	scav("Juansito");
 
 		scav.guardGate();
-		scav.attack("Ulises");
+		scav.attack("Bonnie");
 		scav.takeDamage(5);
 		scav.beRepaired(5);
 
 	}
 
 	{
-		ClapTrap	clap("Juansito");
+		ClapTrap	clap("Bonnie");
 
-		clap.attack("Ulises");
+		clap.attack("Mary");
 		clap.takeDamage(5);
 		clap.beRepaired(5);
+	}
+
+	{
+		DiamondTrap	diamond("Mary");
+
+		diamond.attack("Mary");
+		diamond.takeDamage(5);
+		diamond.beRepaired(5);
+		diamond.whoAmI();
 	}
 	return (0);
 }
