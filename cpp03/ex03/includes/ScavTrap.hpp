@@ -26,8 +26,6 @@ class ScavTrap : virtual public ClapTrap
 		// y las volvemos a desarrollar con los mensajes propios de su
 		// clase (el hijo)
 		void	attack(const std::string& target);
-		void	takeDamage(unsigned int amount);
-		void	beRepaired(unsigned int amount);
 };
 
 #endif

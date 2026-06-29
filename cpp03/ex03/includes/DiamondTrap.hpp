@@ -4,10 +4,12 @@
 #include "FragTrap.hpp"
 
 
-class DiamondTrap : virtual public ScavTrap, virtual public FragTrap	//cuando hay mas de un padre
-{														//se ponen los que sean separados
-	private:											//por comas.
-
+class DiamondTrap :
+			virtual public ScavTrap,
+			virtual public FragTrap					//cuando hay mas de un padre
+{													//se ponen los que sean separados
+	private:										//por comas.
+		std::string	_name;
 
 	public:
 
@@ -20,8 +22,6 @@ class DiamondTrap : virtual public ScavTrap, virtual public FragTrap	//cuando ha
 
 		void	whoAmI();
 		void	attack(const std::string& target);
-		void	takeDamage(unsigned int amount);
-		void	beRepaired(unsigned int amount);
 };
 
 #endif

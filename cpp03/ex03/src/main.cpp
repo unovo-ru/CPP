@@ -10,9 +10,10 @@ int	main()
 		frag.takeDamage(5);
 		frag.beRepaired(5);
 	}
-
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
 	{
-
 		ScavTrap	scav("Juansito");
 
 		scav.guardGate();
@@ -21,7 +22,10 @@ int	main()
 		scav.beRepaired(5);
 
 	}
-
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
 	{
 		ClapTrap	clap("Bonnie");
 
@@ -29,14 +33,19 @@ int	main()
 		clap.takeDamage(5);
 		clap.beRepaired(5);
 	}
-
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
+	std::cout	<< std::endl;
 	{
-		DiamondTrap	diamond("Mary");
+		DiamondTrap	diamond;
 
 		diamond.attack("Mary");
 		diamond.takeDamage(5);
 		diamond.beRepaired(5);
 		diamond.whoAmI();
+		diamond.highFivesGuys();
+		diamond.guardGate();
 	}
 	return (0);
 }
