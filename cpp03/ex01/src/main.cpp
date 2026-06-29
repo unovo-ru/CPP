@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-int main()
+int	main()
 {
 	{
 		ScavTrap	scav("Ulises");
