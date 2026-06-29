@@ -83,7 +83,7 @@ void	ScavTrap::attack(const std::string& target)
 				<< std::endl;
 }
 
-void ScavTrap::takeDamage(unsigned int amount)
+void	ScavTrap::takeDamage(unsigned int amount)
 {
 	if (_hitPoints <= 0)
 	{
@@ -97,7 +97,7 @@ void ScavTrap::takeDamage(unsigned int amount)
 				<< " HP remaining."
 				<< std::endl;
 }
-void ScavTrap::beRepaired(unsigned int amount)
+void	ScavTrap::beRepaired(unsigned int amount)
 {
 	if (_hitPoints <= 0)
 	{

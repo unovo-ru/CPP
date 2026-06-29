@@ -60,7 +60,7 @@ void	FragTrap::attack(const std::string& target)
 				<< std::endl;
 }
 
-void FragTrap::takeDamage(unsigned int amount)
+void	FragTrap::takeDamage(unsigned int amount)
 {
 	if (_hitPoints <= 0)
 	{
@@ -69,12 +69,12 @@ void FragTrap::takeDamage(unsigned int amount)
 		return ;
 	}
 	this->_hitPoints -= amount;
-	std::cout	<< "Fragtrap " << _name << " took " << amount
+	std::cout	<< "FragTrap " << _name << " took " << amount
 				<< " points of damage! " << _hitPoints
 				<< " HP remaining."
 				<< std::endl;
 }
-void FragTrap::beRepaired(unsigned int amount)
+void	FragTrap::beRepaired(unsigned int amount)
 {
 	if (_hitPoints <= 0)
 	{

@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-int main()
+int	main()
 {
 	{
 		FragTrap	frag("Ulises");

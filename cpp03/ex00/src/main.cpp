@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
 
-int main()
+int	main()
 {
 	ClapTrap a("Ulises");
 	ClapTrap b(a);

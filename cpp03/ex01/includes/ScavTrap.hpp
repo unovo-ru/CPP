@@ -25,9 +25,9 @@ class ScavTrap : public ClapTrap
 		// propios de su clase, asi que las mencionamos en el hpp
 		// y las volvemos a desarrollar con los mensajes propios de su
 		// clase (el hijo)
-		void attack(const std::string& target);
-		void takeDamage(unsigned int amount);
-		void beRepaired(unsigned int amount);
+		void	attack(const std::string& target);
+		void	takeDamage(unsigned int amount);
+		void	beRepaired(unsigned int amount);
 };
 
 #endif

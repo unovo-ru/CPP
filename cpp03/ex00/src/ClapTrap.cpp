@@ -51,7 +51,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 	return (*this);
 }
 
-void ClapTrap::attack(const std::string& target)
+void	ClapTrap::attack(const std::string& target)
 {
 	if (_hitPoints <= 0 || _energyPoints <= 0)
 	{
@@ -64,7 +64,7 @@ void ClapTrap::attack(const std::string& target)
 				<< " causing " << _attackDamage
 				<< std::endl;
 }
-void ClapTrap::takeDamage(unsigned int amount)
+void	ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_hitPoints <= 0)
 	{
@@ -78,7 +78,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 				<< " HP remaining."
 				<< std::endl;
 }
-void ClapTrap::beRepaired(unsigned int amount)
+void	ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_hitPoints <= 0)
 	{
