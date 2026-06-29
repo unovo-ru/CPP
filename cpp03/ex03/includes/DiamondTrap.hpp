@@ -4,7 +4,7 @@
 #include "FragTrap.hpp"
 
 
-class DiamondTrap : public ScavTrap, public FragTrap	//cuando hay mas de un padre
+class DiamondTrap : virtual public ScavTrap, virtual public FragTrap	//cuando hay mas de un padre
 {														//se ponen los que sean separados
 	private:											//por comas.
 
