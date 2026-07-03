@@ -13,14 +13,14 @@ class Dog :
 
 	public:
 	
-		Dog();
+						Dog();
 
-		Dog(Dog const &src);
-		Dog& operator=(Dog const &src);
-		virtual	~Dog();
+						Dog(Dog const &src);
+		Dog&			operator=(Dog const &src);
+		virtual			~Dog();
 
-		virtual void		makeSound() const;		//ya es virtual al heredarlo de Animal
-		Brain* getBrain() const;
+		virtual void	makeSound() const;		//ya es virtual al heredarlo de Animal
+		Brain*			getBrain() const;
 };
 
 #endif
