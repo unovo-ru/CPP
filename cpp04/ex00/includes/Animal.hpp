@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
 
 #include <string>
 #include <iostream>
@@ -32,3 +33,4 @@ const std::string getType();			esto dice "el string que devuelvo es const"
 std::string getType() const;			esto dice "este método no modifica *this"
 
 */
+#endif
