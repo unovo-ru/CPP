@@ -19,11 +19,13 @@ Animal::Animal(std::string const &type) : _type(type)
 	cout	<< "Animal constructor called"
 			<< endl;
 }
+
 Animal::Animal(Animal const &src) : _type(src._type)
 {
 	cout	<< "Animal copy constructor called"
 			<< endl;
 }
+
 Animal& Animal::operator=(Animal const &src)
 {
 	if (this != &src)
@@ -35,6 +37,7 @@ std::string	Animal::getType() const
 {
 	return (_type);
 }
+
 void	Animal::makeSound() const
 {
 	cout	<< "Some generic animal sound"

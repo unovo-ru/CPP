@@ -22,7 +22,6 @@ class Dog :
 		virtual	~Dog();
 
 		/*METODOS PROPIOS*/
-		std::string			getType() const;
 		virtual void		makeSound() const;		//ya es virtual al heredarlo de Animal
 													//solo se vuelve a poner por legibilidad
 
