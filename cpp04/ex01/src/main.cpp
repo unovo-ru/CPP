@@ -5,39 +5,51 @@
 
 int main()
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	std::cout	<< "\n\n---------------ARRAY---------------\n\n";
 
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
-	
-	delete meta;
-	delete j;
-	delete i;
+	Animal	*farm[4];
+	farm[0] = new Dog();
+	farm[1] = new Cat();
+	farm[2] = new Dog();
+	farm[3] = new Cat();
 
-	const	WrongAnimal* wrongMeta = new WrongAnimal();
-	const	WrongAnimal* WrongI = new WrongCat();
-	/*a diferencia del caso anterior tengo que crear wrongcat directamente
-	debido a que no contiene polimorfismo virtual*/
+	std::cout	<< "\n\n---------------DOG---------------\n\n";
 
-	/*como no hay virtual, la única forma de que makeSound() de WrongCat
-	se ejecute es accediendo al objeto a través de un puntero del mismo tipo
-	(WrongCat*), no a través de un puntero a la base (WrongAnimal*).*/
+	Dog	*dog1 = new Dog();
+	dog1->getBrain()->setIdea(0, "I AM NO 1 DOG");
 
-	const	WrongCat* wrongCatDirect = new WrongCat();
+	Dog	*dog2 = new Dog(*dog1); //contructor de copia, le pasamos el que debe copiar
 
-	std::cout << WrongI->getType() << " " << std::endl;
-	WrongI->makeSound();
-	wrongMeta->makeSound();
-	wrongCatDirect->makeSound();
+	// aquí ambos deberían tener "I AM N0 1 DOG"
+	std::cout << dog1->getBrain()->getIdea(0) << std::endl;
+	std::cout << dog2->getBrain()->getIdea(0) << std::endl;
 
-	delete wrongCatDirect;
-	delete wrongMeta;
-	delete WrongI;
+	//despues modificamnos la idea
+	dog2->getBrain()->setIdea(0, "I AM NO 2 DOG");
 
-	return 0;
+	// aquí dog1 tiene "modified idea" pero dog2 debería seguir con "original idea"
+	std::cout << dog1->getBrain()->getIdea(0) << std::endl;
+	std::cout << dog2->getBrain()->getIdea(0) << std::endl;
+
+	std::cout	<< "\n\n---------------CAT---------------\n\n";
+
+	Cat	*cat1 = new Cat();
+	cat1->getBrain()->setIdea(0, "I AM NO 1 CAT");
+	Cat	*cat2 = new Cat(*cat1);
+	std::cout << cat1->getBrain()->getIdea(0) << std::endl;
+	std::cout << cat2->getBrain()->getIdea(0) << std::endl;
+	cat2->getBrain()->setIdea(0, "I AM NO 2 CAT");
+	std::cout << cat1->getBrain()->getIdea(0) << std::endl;
+	std::cout << cat2->getBrain()->getIdea(0) << std::endl;
+
+	std::cout	<< "\n\n---------------DELETE---------------\n\n";
+
+	for (int i = 0; i < 4; i++)
+		delete farm[i];
+	delete dog1;
+	delete dog2;
+	delete cat1;
+	delete cat2;
+
+	return (0);
 }

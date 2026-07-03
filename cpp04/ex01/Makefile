@@ -1,4 +1,4 @@
-NAME		= Animal
+NAME		= BrainedAnimal
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -15,6 +15,7 @@ SRC_FILES	=	main.cpp \
 				Cat.cpp \
 				WrongAnimal.cpp \
 				WrongCat.cpp \
+				Brain.cpp \
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))

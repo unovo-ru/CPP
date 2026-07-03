@@ -2,26 +2,23 @@
 #define CAT_HPP
 
 #include "Animal.hpp"
-
+#include "Brain.hpp"
 class Cat :
 			public Animal
 {
-	protected:
+	private:
 
-		// std::string	type;
-	
-	
+		Brain	*_brain;
+
 	public:
 	
-		/*FORMA CANONICA ORTODOXA*/
 		Cat();
 		Cat(Cat const &src);
 		Cat& operator=(Cat const &src);
 		virtual	~Cat();
 
-		/*METODOS PROPIOS*/
 		virtual void		makeSound() const;
-
+		Brain* getBrain() const;
 };
 
 #endif
