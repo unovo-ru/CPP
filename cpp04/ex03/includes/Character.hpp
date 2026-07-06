@@ -11,7 +11,9 @@ class Character : public ICharacter
 
 		std::string		_name;
 		AMateria		*_inventory[4]; // Aquí es donde vive el inventario de 4 slots
-
+		/*si tengo en mis atributos un puntero a otra memoria
+		esta debo deletearla en el destructor, no vale con una
+		llamada al destructor sin mas */
 
 	public:
 
