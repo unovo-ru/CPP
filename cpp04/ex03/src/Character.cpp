@@ -12,8 +12,18 @@ Character::Character() : _name(), _inventory()
 				<< std::endl;
 }
 
-Character::Character(const Character &src)
+Character::Character(const Character &src) : _name(src.getName())
 {
+	for (int i = 0; i < 4; i++)
+		_inventory[i] = src._inventory[i]->clone();
+
+	/*la otra opcion es la siguiente:
+	
+	*this = src
+	
+	aplicando la llamada al operador de asignacion e igualando los atributos mediante
+	ese metodo, mas sencillo y directo*/
+
 	std::cout	<< "Character Copy constructor called"
 				<< std::endl;
 }
