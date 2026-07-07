@@ -88,5 +88,15 @@ void	Character::unequip(int idx)
 
 void	Character::use(int idx, ICharacter& target)
 {
-
+	if (idx >= 0 && idx <= 3)
+		if (_inventory[idx])
+			_inventory[idx]->use(target);
+	/*hay dos funciones use, la del propio character
+	usa 2 parametros para activarse, int idx y target
+	la de AMateria (que es la que nos interesa porque es la que
+	sabe la materia que tiene el poder (ice o cure)), solo tiene
+	un parametro que es target, asi que al llamarla desde este objeto
+	pero poniendo los parametros que toma la de amateria, el compilador
+	sabe que debe ejecutar la virtual pura de materia que ella sola
+	no podria usar (es abstarcta)*/
 }
