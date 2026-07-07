@@ -15,7 +15,10 @@ Character::Character() : _name(), _inventory()
 Character::Character(const Character &src) : _name(src.getName())
 {
 	for (int i = 0; i < 4; i++)
-		_inventory[i] = src._inventory[i]->clone();
+		this->_inventory[i] = NULL;
+	for (int i = 0; i < 4; i++)
+		if (src._inventory[i])
+			_inventory[i] = src._inventory[i]->clone();
 
 	/*la otra opcion es la siguiente:
 	

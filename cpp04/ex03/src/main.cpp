@@ -81,7 +81,8 @@ void	fullInventoryTest()
 	Además, hay que vigilar qué pasa con la memoria de esa 5ª
 	materia para que no se quede flotando*/
 
-	std::cout	<< "-------TEST FULL INVENTORY-------"
+	std::cout	<< std::endl
+				<< "-------TEST FULL INVENTORY-------"
 				<< std::endl;
 
 	ICharacter		*warrior = new Character("warrior");
@@ -93,7 +94,8 @@ void	fullInventoryTest()
 		AMateria	*tmp = inventory->createMateria("ice");
 		if (i == 4)
 		{
-			std::cout	<< "[TEST] trying to equip 5th weapon... deleting extra"
+			std::cout	<< std::endl
+						<< "[TEST] trying to equip 5th weapon... deleting extra"
 						<< std::endl;
 			delete tmp;
 		}
@@ -108,12 +110,15 @@ void	fullInventoryTest()
 	delete target;
 	delete warrior;
 	delete inventory;
-	std::cout << "------- FIN TEST: FULL INVENTORY -------\n" << std::endl;
+	std::cout	<< std::endl
+				<< "------- FIN TEST: FULL INVENTORY -------\n"
+				<< std::endl;
 }
 
 void	deepCopyTest()
 {
-	std::cout	<< "\n--- TEST: DEEP COPY CHARACTER ---"
+	std::cout	<< std::endl
+				<< "--- TEST: DEEP COPY CHARACTER ---"
 				<< std::endl;
 
 	// 1. Creamos el generador y le enseñamos Hielo
@@ -142,12 +147,14 @@ void	deepCopyTest()
 	// 5. COMPROBACIÓN
 	// Si la copia fue profunda, warrior2 copió la materia usando clone() en su constructor de copia.
 	// Por lo tanto, warrior2 debería seguir teniendo su propio Ice intacto en el slot 0.
-	std::cout	<< "[Test] Warrior1 (original) tries to attack:"
+	std::cout	<< std::endl
+				<< "[Test] Warrior1 (original) tries to attack:"
 				<< std::endl;
 	ICharacter* bob = new Character("Bob");
 	warrior1->use(0, *bob);	// No debería hacer nada (slot vacío)
 
-	std::cout	<< "[Test] Warrior2 (COPY) tries to attack:"
+	std::cout	<< std::endl
+				<< "[Test] Warrior2 (COPY) tries to attack:"
 				<< std::endl;
 	warrior2->use(0, *bob);	// Debería disparar el Ice perfectamente
 
@@ -159,7 +166,9 @@ void	deepCopyTest()
 	delete warrior2;
 	delete src;
 		
-	std::cout << "--- FIN TEST: DEEP COPY CHARACTER ---\n" << std::endl;
+	std::cout	<< std::endl
+				<< "--- END TEST: DEEP COPY CHARACTER ---"
+				<< std::endl;
 }
 
 int main()
