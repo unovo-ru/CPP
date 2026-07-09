@@ -50,6 +50,11 @@ void	File::replace()
 	// el stream es un flujo de entrada/salida de datos
 	while (std::getline(file, line))
 	{
+		if (_s1.empty())							//
+		{											//
+			replacedFile << line << std::endl;		// AÑADIDO AHORA
+			continue;								//
+		}
 		size_t pos = line.find(_s1);
 		while (pos != std::string::npos)
 		{
