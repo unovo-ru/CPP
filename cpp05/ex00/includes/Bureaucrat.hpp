@@ -17,7 +17,6 @@ class Bureaucrat
 
 		/*FORMA CANONICA ORTODOXA*/
 		Bureaucrat();
-		// Bureaucrat(std::string const name);
 		Bureaucrat(std::string const name, int grade);
 		Bureaucrat(const Bureaucrat &other);
 		Bureaucrat	&operator=(const Bureaucrat &other);

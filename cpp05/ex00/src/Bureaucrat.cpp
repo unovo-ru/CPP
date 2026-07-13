@@ -7,12 +7,6 @@ Bureaucrat::Bureaucrat() : _name(), _grade(1)
 				<< std::endl;
 }
 
-// Bureaucrat::Bureaucrat(std::string const name) : _name(name)
-// {
-// 	std::cout	<< "Constructor called"
-// 				<< std::endl;
-// }
-
 Bureaucrat::~Bureaucrat()
 {
 	std::cout	<< "Destructor called"
