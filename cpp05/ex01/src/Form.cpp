@@ -82,9 +82,9 @@ std::ostream	&operator<<(std::ostream &o, const Form &other)
 		<< other.getGradeToExec();
 
 	if (other.getIsSigned())
-		o	<< "IS signed.";
+		o	<< " IS signed.";
 	else
-		o	<< "IS NOT signed.";
+		o	<< " IS NOT signed ";
 	return (o);
 }
 
