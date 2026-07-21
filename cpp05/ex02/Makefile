@@ -11,7 +11,7 @@ CXXFLAGS	+= -I$(INC_DIR)
 
 SRC_FILES	=	main.cpp \
 				Bureaucrat.cpp \
-				Form.cpp \
+				AForm.cpp \
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))

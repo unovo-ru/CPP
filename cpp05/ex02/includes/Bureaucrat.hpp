@@ -4,9 +4,9 @@
 #include <iostream>
 #include <string>
 #include <exception>
-#include "Form.hpp"
+// #include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -67,9 +67,8 @@ class Bureaucrat
 			public:
 				virtual const char	*what() const throw();
 		};
-
 		/*NUEVO METODO PERTENECIENTE A LA CLASE BUREAUCRAT PERO QUE RECIBE FORM*/
-		void	signForm(Form &form);
+		void	signForm(AForm &form);
 		
 	};
 	/*Operador de inserción como función LIBRE (no miembro):

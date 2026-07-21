@@ -1,7 +1,11 @@
 #ifndef AFORM_HPP
 #define AFORM_HPP
 
-#include "Bureaucrat.hpp"
+#include <iostream>
+#include <string>
+#include <exception>
+
+// #include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
@@ -41,7 +45,11 @@ class AForm
 			public:
 				virtual const char	*what() const throw();
 		};
-
+		class FormNotSignedException : public std::exception
+		{
+			public:
+				virtual const char	*what() const throw();
+		};
 		/*LA FUNCION QUE SERA ABSTRACTA PURA ES LA QUE NO PUEDE HACER LA CLASE MADRE
 		(LA HACEN LAS HIJAS PORQUE ES PROPIO DE ELLAS), PERO QUE CADA HIJA NECESITA
 		DE FORMA DISTINTA (ALGO ASI COMO LA QUE DA PASO A LA LLAMADA DE UNA EJECUCION
@@ -57,7 +65,12 @@ class AForm
 					\-----> PresidentialPardonForm -> target perdondado
 					
 		*/
-		virtual void		execAction(Bureaucrat const & executor) = 0;
+
+		/*: cuando una clase hija sobrescribe (override) un método virtual,
+		la cualificación const tiene que coincidir exactamente
+		con la de la clase madre.*/
+
+		virtual void		execAction(Bureaucrat const & executor) const = 0;
 
 		/*el metodo que cumple la revision de los requisitos para ver si se ejecuta la accion*/
 		void				execute(Bureaucrat const & executor) const;

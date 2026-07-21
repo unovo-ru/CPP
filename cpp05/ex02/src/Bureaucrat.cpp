@@ -1,3 +1,4 @@
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : _name(), _grade(1)
@@ -90,8 +91,7 @@ const char	*Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("The grade is too low, must be between 1 - 150");
 }
-
-void	Bureaucrat::signForm(Form &form)
+void	Bureaucrat::signForm(AForm &form)
 {
 	try
 	{
