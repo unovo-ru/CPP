@@ -69,7 +69,7 @@ class Bureaucrat
 		};
 		/*NUEVO METODO PERTENECIENTE A LA CLASE BUREAUCRAT PERO QUE RECIBE FORM*/
 		void	signForm(AForm &form);
-		
+		void	executeForm(AForm const &form) const;
 	};
 	/*Operador de inserción como función LIBRE (no miembro):
 	1.-	std::cout << bureaucrat  →  el operando izquierdo es ostream,

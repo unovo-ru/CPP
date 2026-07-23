@@ -1,10 +1,19 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int	main()
 {
 	std::cout	<< "hola"
 				<< std::endl;
+
+	Bureaucrat b("Alice", 100);
+	ShrubberyCreationForm shrub("home");
+	b.executeForm(shrub); // sin firmar -> debería fallar con FormNotSignedException
+	b.signForm(shrub);
+	b.executeForm(shrub); // ahora sí -> debería crear "home_shrubbery"
+	
+	
 	// 1. Form válido + impresión
 	// Form	a("test1", 19, 10);
 	// std::cout << a << std::endl;

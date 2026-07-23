@@ -31,6 +31,7 @@ AForm &AForm::operator=(const AForm &other)
 	return (*this);
 }
 
+/*no necesito un destructor para una clase que a partir de ahora es abstracta*/
 // AForm::~AForm()
 // {
 // 	std::cout	<< "Destructor called"
@@ -109,4 +110,13 @@ void	AForm::execute(Bureaucrat const &executor) const
 		throw FormNotSignedException();
 	if (this->_gradeToExec < executor.getGrade())
 		throw GradeTooLowException();
+	/*mediante polimorfismo podemos llamar a la funcion que ejecuta aunque desde
+	AForm es virtual pura, pero como en las hijas estara presente podemos hacer algo
+	similar a declarar un AAnimal y darle el valor de un hijo instanciable:
+	
+		AAnimal *d = new Dog();
+	
+	en funcion del tipo de dato que trabajemos en el main, execAction(executor)
+	sabra que tipo de hijo es: si shubbery, pardon...*/
+	this->execAction(executor);
 }
