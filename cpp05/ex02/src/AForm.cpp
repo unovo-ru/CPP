@@ -1,22 +1,34 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-AForm::AForm() : _name(), _gradeToSign(1), _gradeToExec(1), _isSigned(false)
+AForm::AForm() :
+		_name(""),
+		_gradeToSign(1),
+		_gradeToExec(1),
+		_isSigned(false),
+		_target("")
 {
 	std::cout	<< "Default Constructor called"
 				<< std::endl;
 }
 
-AForm::AForm(const std::string name, const int toSign, const int toExec):
-	_name(name), _gradeToSign(validateGrade(toSign)), _gradeToExec(validateGrade(toExec)), _isSigned(false)
+AForm::AForm(const std::string name, const std::string target, const int toSign, const int toExec):
+	_name(name),
+	_gradeToSign(validateGrade(toSign)),
+	_gradeToExec(validateGrade(toExec)),
+	_isSigned(false),
+	_target(target)
 {
 	std::cout	<< "Constructor called"
 				<< std::endl;
 }
 
 AForm::AForm(const AForm &other):
-	_name(other._name), _gradeToSign(other._gradeToSign), _gradeToExec(other._gradeToExec),
-	_isSigned(other._isSigned)
+	_name(other._name),
+	_gradeToSign(other._gradeToSign),
+	_gradeToExec(other._gradeToExec),
+	_isSigned(other._isSigned),
+	_target(other._target)
 {
 	std::cout	<< "Copy Constructor called"
 				<< std::endl;
@@ -41,6 +53,11 @@ AForm &AForm::operator=(const AForm &other)
 const std::string	AForm::getName() const
 {
 	return (_name);
+}
+
+const std::string	AForm::getTarget() const
+{
+	return (_target);
 }
 
 int	AForm::getGradeToSign() const

@@ -1,111 +1,123 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+
 
 int	main()
 {
-	std::cout	<< "hola"
-				<< std::endl;
+	{
+		std::cout << "=== SHRUBBERY CREATION FORM ===" << std::endl;
+		try
+		{
+			// 1. Crear burócratas con distintos rangos
+			Bureaucrat lowRank("LowRankBob", 150);		// No puede firmar (150 > 145) ni ejecutar
+			Bureaucrat midRank("MidRankAlice", 140);	// Puede firmar (140 <= 145), pero NO ejecutar (140 > 137)
+			Bureaucrat highRank("HighRankCharlie", 1);	// Puede hacer todo
 
-	Bureaucrat b("Alice", 100);
-	ShrubberyCreationForm shrub("home");
-	b.executeForm(shrub); // sin firmar -> debería fallar con FormNotSignedException
-	b.signForm(shrub);
-	b.executeForm(shrub); // ahora sí -> debería crear "home_shrubbery"
-	
-	
-	// 1. Form válido + impresión
-	// Form	a("test1", 19, 10);
-	// std::cout << a << std::endl;
+			// 2. Instanciar el formulario
+			ShrubberyCreationForm shrub("jardin");
 
-	// // 2. toSign demasiado alto (>150)
-	// try
-	// {
-	// 	Form	b("test2", 190, 10);
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// Intentar ejecutar sin estar firmado -> Debería fallar
+			std::cout << "\n--- Intentando ejecutar sin firmar ---" << std::endl;
+			highRank.executeForm(shrub);
 
-	// // 3. toSign demasiado bajo (<1)
-	// try
-	// {
-	// 	Form	c("test3", -5, 10);
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// Intentar firmar con rango insuficiente (150) -> Debería fallar
+			std::cout << "\n--- Intentando firmar con rango insuficiente ---" << std::endl;
+			lowRank.signForm(shrub);
 
-	// // 4. toExec demasiado alto (>150)
-	// try
-	// {
-	// 	Form	d("test4", 19, 200);
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// Firmar con rango suficiente (140) -> Debería tener éxito
+			std::cout << "\n--- Firmando con rango correcto ---" << std::endl;
+			midRank.signForm(shrub);
 
-	// // 5. toExec demasiado bajo (<1)
-	// try
-	// {
-	// 	Form	e("test5", 19, -3);
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// Intentar ejecutar con rango insuficiente para ejecutar (140 > 137) -> Debería fallar
+			std::cout << "\n--- Intentando ejecutar con rango insuficiente ---" << std::endl;
+			midRank.executeForm(shrub);
 
-	// // 6. Bureaucrat con grado suficiente firma correctamente
-	// try
-	// {
-	// 	Bureaucrat	goodBureaucrat("Alice", 5);
-	// 	a.beSigned(goodBureaucrat);
-	// 	std::cout << a << std::endl;
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// Ejecutar con rango de sobra (1) -> Debería crear "jardin_shrubbery"
+			std::cout << "\n--- Ejecutando con rango correcto ---" << std::endl;
+			highRank.executeForm(shrub);
+		}
+		catch (const std::exception &e)
+		{
+			std::cerr << "Excepción inesperada en main: " << e.what() << std::endl;
+		}
+	}
 
-	// // 7. Bureaucrat con grado insuficiente falla al firmar
-	// try
-	// {
-	// 	Form		f("test6", 19, 10);
-	// 	Bureaucrat	badBureaucrat("Bob", 50);
-	// 	f.beSigned(badBureaucrat);
-	// 	std::cout << f << std::endl;
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+	{
+		std::cout << "=== ROBOT CREATION FORM ===" << std::endl; /*72, 45*/
+		try
+		{
+			// 1. Crear burócratas con distintos rangos
+			Bureaucrat lowRank("LowRankBob", 150);		// No puede firmar (150 > 145) ni ejecutar
+			Bureaucrat midRank("MidRankAlice", 60);	// Puede firmar (140 <= 145), pero NO ejecutar (140 > 137)
+			Bureaucrat highRank("HighRankCharlie", 1);	// Puede hacer todo
 
-	// // 8. Bureaucrat con grado suficiente usa signForm() con éxito
-	// try
-	// {
-	// 	Form		formOk("formOk", 50, 30);
-	// 	Bureaucrat	goodSigner("Charlie", 10);
-	// 	goodSigner.signForm(formOk);
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// 2. Instanciar el formulario
+			RobotomyRequestForm	robot("robot");
+			// Intentar ejecutar sin estar firmado -> Debería fallar
+			std::cout	<< "\ntrying to execute robot without sign\n";
+			lowRank.executeForm(robot);
 
-	// // 9. Bureaucrat con grado insuficiente usa signForm() y falla
-	// try
-	// {
-	// 	Form		formFail("formFail", 50, 30);
-	// 	Bureaucrat	badSigner("Dave", 100);
-	// 	badSigner.signForm(formFail);
-	// }
-	// catch (const std::exception &e)
-	// {
-	// 	std::cerr << e.what() << std::endl;
-	// }
+			// Intentar firmar con rango insuficiente (150) -> Debería fallar
+			std::cout	<< "\ntrying to sign robot without grade enough\n";
+			lowRank.signForm(robot);
+			// Firmar con rango suficiente (140) -> Debería tener éxito
+			std::cout	<< "\ntrying to sign robot with grade enough\n";
+			midRank.signForm(robot);
+
+			// Intentar ejecutar con rango insuficiente para ejecutar (140 > 137) -> Debería fallar
+			std::cout	<< "\ntrying to execute robot without grade enough\n";
+			midRank.executeForm(robot);
+
+			// Ejecutar con rango de sobra (1) -> Debería crear "jardin_shrubbery"
+			std::cout	<< "\ntrying to execute robot with grade enough\n";
+			highRank.executeForm(robot);
+
+		}
+		catch (const std::exception &e)
+		{
+			std::cerr << "Excepción inesperada en main: " << e.what() << std::endl;
+		}
+	}
+
+	{
+				std::cout << "=== PRESIDENTIAL PARDON CREATION FORM ===" << std::endl; 
+		try
+		{
+			// 1. Crear burócratas con distintos rangos
+			Bureaucrat lowRank("LowRankBob", 150);		// No puede firmar (150 > 145) ni ejecutar
+			Bureaucrat midRank("MidRankAlice", 20);	// Puede firmar (140 <= 145), pero NO ejecutar (140 > 137)
+			Bureaucrat highRank("HighRankCharlie", 1);	// Puede hacer todo
+
+			// 2. Instanciar el formulario
+			PresidentialPardonForm	bush("bush");
+			// Intentar ejecutar sin estar firmado -> Debería fallar
+			std::cout	<< "\ntrying to execute bush without sign\n";
+			lowRank.executeForm(bush);
+
+			// Intentar firmar con rango insuficiente (150) -> Debería fallar
+			std::cout	<< "\ntrying to sign bush without grade enough\n";
+			lowRank.signForm(bush);
+			// Firmar con rango suficiente (140) -> Debería tener éxito
+			std::cout	<< "\ntrying to sign bush with grade enough\n";
+			midRank.signForm(bush);
+
+			// Intentar ejecutar con rango insuficiente para ejecutar (140 > 137) -> Debería fallar
+			std::cout	<< "\ntrying to execute bush without grade enough\n";
+			midRank.executeForm(bush);
+
+			// Ejecutar con rango de sobra (1) -> Debería crear "jardin_shrubbery"
+			std::cout	<< "\ntrying to execute bush with grade enough\n";
+			highRank.executeForm(bush);
+
+		}
+		catch (const std::exception &e)
+		{
+			std::cerr << "Excepción inesperada en main: " << e.what() << std::endl;
+		}
+	}
 
 	return (0);
 }

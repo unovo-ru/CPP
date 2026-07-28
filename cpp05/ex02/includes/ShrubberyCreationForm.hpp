@@ -7,11 +7,6 @@
 
 class ShrubberyCreationForm : public AForm
 {
-	private:
-
-		std::string	_target;
-
-
 	public:
 
 		ShrubberyCreationForm();
@@ -20,7 +15,7 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(const ShrubberyCreationForm &other);
 		ShrubberyCreationForm	&operator=(const ShrubberyCreationForm &other);
 
-		std::string		getTarget() const;
+		// std::string		getTarget() const;
 		virtual void	execAction(Bureaucrat const & executor) const;
 
 		class FileCreationException: public std::exception

@@ -16,17 +16,19 @@ class AForm
 		const std::string	_name;
 		const int			_gradeToSign;
 		const int			_gradeToExec;
+		const std::string	_target;
 		bool				_isSigned;
 
 	public:
 
 							AForm();
-							AForm(const std::string name, const int toSign, const int toExec);
+							AForm(const std::string name, const std::string target, const int toSign, const int toExec);
 							AForm(const AForm &other);
 		AForm&				operator=(const AForm &other);
 		virtual				~AForm() {} ; //se virtualiza con las llaves
 
 		const std::string	getName() const ;
+		const std::string	getTarget() const ;
 		int					getGradeToSign() const ;
 		int					getGradeToExec() const ;
 		bool				getIsSigned() const ;
