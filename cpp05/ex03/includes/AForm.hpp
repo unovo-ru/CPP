@@ -25,7 +25,7 @@ class AForm
 							AForm(const std::string name, const std::string target, const int toSign, const int toExec);
 							AForm(const AForm &other);
 		AForm&				operator=(const AForm &other);
-		virtual				~AForm() {} ; //se virtualiza con las llaves
+		virtual				~AForm();
 
 		const std::string	getName() const ;
 		const std::string	getTarget() const ;

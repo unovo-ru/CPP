@@ -5,8 +5,8 @@ AForm::AForm() :
 		_name(""),
 		_gradeToSign(1),
 		_gradeToExec(1),
-		_isSigned(false),
-		_target("")
+		_target(""),
+		_isSigned(false)
 {
 	std::cout	<< "Default Constructor called"
 				<< std::endl;
@@ -16,8 +16,8 @@ AForm::AForm(const std::string name, const std::string target, const int toSign,
 	_name(name),
 	_gradeToSign(validateGrade(toSign)),
 	_gradeToExec(validateGrade(toExec)),
-	_isSigned(false),
-	_target(target)
+	_target(target),
+	_isSigned(false)
 {
 	std::cout	<< "Constructor called"
 				<< std::endl;
@@ -27,8 +27,8 @@ AForm::AForm(const AForm &other):
 	_name(other._name),
 	_gradeToSign(other._gradeToSign),
 	_gradeToExec(other._gradeToExec),
-	_isSigned(other._isSigned),
-	_target(other._target)
+	_target(other._target),
+	_isSigned(other._isSigned)
 {
 	std::cout	<< "Copy Constructor called"
 				<< std::endl;
@@ -43,12 +43,11 @@ AForm &AForm::operator=(const AForm &other)
 	return (*this);
 }
 
-/*no necesito un destructor para una clase que a partir de ahora es abstracta*/
-// AForm::~AForm()
-// {
-// 	std::cout	<< "Destructor called"
-// 				<< std::endl;
-// }
+AForm::~AForm()
+{
+	std::cout	<< "Destructor called"
+				<< std::endl;
+}
 
 const std::string	AForm::getName() const
 {

@@ -5,7 +5,7 @@
 #include <string>
 #include <exception>
 
-// #include "Bureaucrat.hpp"
+#include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
@@ -25,7 +25,9 @@ class AForm
 							AForm(const std::string name, const std::string target, const int toSign, const int toExec);
 							AForm(const AForm &other);
 		AForm&				operator=(const AForm &other);
-		virtual				~AForm() {} ; //se virtualiza con las llaves
+		virtual				~AForm(); /*{} ; //se virtualiza con las llaves*/
+		/*"Any function implementation put in a header
+		file (except for function templates) means 0 to the exercise."*/
 
 		const std::string	getName() const ;
 		const std::string	getTarget() const ;
