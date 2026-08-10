@@ -28,7 +28,7 @@ void	ScalarConverter::displayAll(const double &av)
 						<< std::endl;
 		else
 		{
-			char	charResult = static_cast<char>(av);
+			char	charResult = static_cast<char>(result);
 			if (std::isprint(static_cast<unsigned char>(charResult)))
 				std::cout	<< "char: '" << charResult << "'"
 							<< std::endl;
@@ -54,7 +54,7 @@ void	ScalarConverter::displayAll(const double &av)
 	/*FLOAT*/
 	{
 		if (std::isnan(av))
-			std::cout	<< "float: nan"
+			std::cout	<< "float: nanf"
 						<< std::endl;
 		else if (std::isinf(av))
 			std::cout	<< "float: " << (av > 0 ? "inff" : "-inff")
@@ -101,10 +101,9 @@ void ScalarConverter::convert(const std::string &av)
 	}
 
 	/*1.-para el char literal*/
-	if (av.size() == 1 && (std::isprint(static_cast<unsigned char>(av[0]))))
+	if (av.size() == 3 && av[0] == '\'' && av[2] == '\'' && (std::isprint(static_cast<unsigned char>(av[0]))))
 	{
-		double charValue = static_cast<double>(av[0]);
-		std::cout	<< charValue << std::endl;
+		double charValue = static_cast<double>(av[1]);
 		displayAll(charValue);
 		return;
 	}
