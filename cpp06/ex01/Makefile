@@ -10,7 +10,7 @@ INC_DIR		= includes
 CXXFLAGS	+= -I$(INC_DIR)
 
 SRC_FILES	=	main.cpp \
-				.cpp \
+				Serializer.cpp \
 
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
