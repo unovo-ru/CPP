@@ -3,6 +3,24 @@
 
 #include <string>
 #include <iostream>
+#include <limits>
+#include <climits>
+#include <cmath>
+#include <cstdlib>
+#include <cctype>
+#include <iomanip>
+
+// # define CHAR 1
+// # define INT 2
+// # define DOUBLE 3
+// # define FLOAT 4
+
+# define NAN_DOUBLE "nan"
+# define NAN_FLOAT "nanf"
+# define INF_POS_DOUBLE "+inf"
+# define INF_NEG_DOUBLE "-inf"
+# define INF_POS_FLOAT "+inff"
+# define INF_NEG_FLOAT "-inff"
 
 /*tipos de casteo:
 
@@ -50,55 +68,16 @@ class ScalarConverter
 		~ScalarConverter();
 		ScalarConverter(ScalarConverter const &other);
 		ScalarConverter &operator=(ScalarConverter const &other);
-		static void convert(const std::string);
+
+		/*funcion auxiliar para imprimir:*/
+		static void	displayAll(const double &av);
+
+	/*convert si lo necesitamos en public ya que esta si lo llamamos desde el main*/
+
+	public:
+
+		static void convert(const std::string &av);
 };
 
 #endif
 
-
-/*
-FROM python:3.12-slim
-# Evita que Python genere archivos .pyc y fuerza salida sin buffer (mejor para logs)
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
- 
-# Directorio de trabajo dentro del contenedor
-WORKDIR /app
- 
-# Instala dependencias del sistema que suelen hacer falta (compilador, git, etc.)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
- 
-# Copiamos primero solo requirements para aprovechar la cache de Docker
-COPY requirements.txt .
- 
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
- 
-# Ahora copiamos el resto del código
-COPY . .
- 
-# Comando por defecto: abre una shell interactiva
-CMD ["python3"]
-
-
-
-
-
-comds:
-docker build -t mi-proyecto-python .
-docker run -it --rm -v $(pwd):/app mi-proyecto-python
-
-
-
-
-librerias de python:
-Requirements · TXT
-# Añade aquí tus dependencias, por ejemplo:
-# requests==2.32.3
-# numpy==2.0.1
- 
-*/
