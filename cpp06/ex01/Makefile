@@ -1,4 +1,4 @@
-NAME		= convert
+NAME		= serialization
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -10,7 +10,7 @@ INC_DIR		= includes
 CXXFLAGS	+= -I$(INC_DIR)
 
 SRC_FILES	=	main.cpp \
-				ScalarConverter.cpp \
+				.cpp \
 
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
