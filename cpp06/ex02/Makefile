@@ -1,33 +1,38 @@
-NAME = ex02
-LIBRARY = lib
-CPP = c++
-INCLUDES = include
-FLAGS = -Wall -Wextra -Werror -I$(INCLUDES)
-C98 = -std=c++98
+NAME		= base
 
-SRC = src/main.cpp src/Base.cpp src/A.cpp src/B.cpp src/C.cpp
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
-OBJ = $(SRC:src/%.cpp=obj/%.o)
+SRC_DIR		= src
+OBJ_DIR		= obj
+INC_DIR		= includes
+
+CXXFLAGS	+= -I$(INC_DIR)
+
+SRC_FILES	=	main.cpp \
+				Base.cpp \
+				indentify.cpp \
+				generate.cpp \
+
+
+SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))
 
 all: $(NAME)
 
-$(NAME): $(LIBRARY)
-	$(CPP) $(FLAGS) $(C98) $(LIBRARY) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-obj/%.o: src/%.cpp
-	mkdir -p obj
-	$(CPP) $(FLAGS) $(C98) -c $< -o $@
-
-$(LIBRARY): $(OBJ)
-	ar rcs $(LIBRARY) $(OBJ)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -rf obj/
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(LIBRARY)
 
 re: fclean all
 
-.PHONY: all clean fclean re library
+.PHONY: all clean fclean re

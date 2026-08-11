@@ -1,13 +1,15 @@
 #ifndef TERMINALSTYLES_H
 # define TERMINALSTYLES_H
-# include <string>
-# include <iostream>
-# include <exception>
-# include <iomanip>
-# include <cstdlib>
-# include <cerrno>
-# include <limits>
-# include <cmath>
+
+#include <string>
+#include <iostream>
+#include <exception>
+#include <iomanip>
+#include <cstdlib>
+#include <cerrno>
+#include <limits>
+#include <cmath>
+#include <ctime>
 
 // Styles
 # ifndef BOLD_TYPE
