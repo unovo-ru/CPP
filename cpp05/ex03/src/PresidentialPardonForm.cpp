@@ -3,14 +3,14 @@
 PresidentialPardonForm::PresidentialPardonForm():
 			AForm("President", "", 25, 5)
 {
-	std::cout	<< "Default Costructor called"
+	std::cout	<< "Default Constructor called"
 				<< std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target):
 			AForm("President", target, 25, 5)
 {
-	std::cout	<< "Costructor called"
+	std::cout	<< "Constructor called"
 				<< std::endl;
 }
 
