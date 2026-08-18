@@ -29,24 +29,30 @@ int	main(void)
 
 	/*INTERCAMBIO*/
 	{
-		char	a = 'a';
-		char	b = 'b';
+		char	c = 'a';
+		char	d = 'b';
 
 		std::cout	<< "esto es antes de intercambiar"
 					<< std::endl;
-		std::cout	<< "a = " << a
+		std::cout	<< "c = " << c
 					<< std::endl
-					<< "b = " << b
+					<< "d = " << d
 					<< std::endl;
 
-		::swap(a, b);
+		// std::cout	<< "psado un template min al ejemplo de los char -> "
+		// 			<< ::min(a, b);
+
+		::swap(c, d);
 
 		std::cout	<< "esto es despues de intercambiar"
 					<< std::endl;
-		std::cout	<< "a = " << a
+		std::cout	<< "c = " << c
 					<< std::endl
-					<< "b = " << b
+					<< "d = " << d
 					<< std::endl;
+
+		std::cout	<< "pasado un template min al ejemplo de los char -> "
+					<< ::min(c, d);
 	}
 
 }

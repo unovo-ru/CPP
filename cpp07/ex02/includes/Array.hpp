@@ -7,7 +7,6 @@
 #include <stdlib.h>
 
 template <typename T>
-
 class Array
 {
 	private:
