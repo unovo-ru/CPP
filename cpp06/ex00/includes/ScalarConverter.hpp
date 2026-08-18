@@ -10,10 +10,6 @@
 #include <cctype>
 #include <iomanip>
 
-// # define CHAR 1
-// # define INT 2
-// # define DOUBLE 3
-// # define FLOAT 4
 
 # define NAN_DOUBLE "nan"
 # define NAN_FLOAT "nanf"
