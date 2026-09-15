@@ -38,16 +38,30 @@ pero si podemos modificar el puntero, it++ / it--*/
 
 /*de esta forma podemos hacer una unica excepcion pero que lance distintos
 mensajes segun nos convenga*/
+// class NotFound : public std::exception
+// {
+// 	private:
+// 		const char	*_message;
+
+// 	public:
+// 		NotFound(const char *message): _message(message){};
+// 		virtual const char	*what() const throw()
+// 		{
+// 			return (_message);
+// 		}
+// };
+
 class NotFound : public std::exception
 {
 	private:
-		const char	*_message;
+		std::string	_message;
 
 	public:
-		NotFound(const char *message): _message(message){};
+		NotFound(const std::string &message) : _message(message) {}
+		virtual ~NotFound() throw() {}
 		virtual const char	*what() const throw()
 		{
-			return (_message);
+			return (_message.c_str());
 		}
 };
 
