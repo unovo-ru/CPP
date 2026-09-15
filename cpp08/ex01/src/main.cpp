@@ -1,103 +1,47 @@
-#include "easyfind.hpp"
+#include "Span.hpp"
 
 int	main()
 {
+	/*SUBJECT EXAMPLE:*/
 	{
-		std::vector<int>	vec;
-		/*vec es un vector de ints vacio por el momento*/
-		
-		/*push_back añade al final del vector los datos que vamos
-		pasandole:*/
-		
-		
-		vec.push_back(3);
-		/*vec = {3}*/
-		vec.push_back(7);
-		/*vec = {3, 7}*/
-		vec.push_back(10);
-		/*vec = {3, 7, 10}*/
-
-		try
-		{
-			easyfind(vec, 4);
-			std::cout	<< "FOUND: 4 IS IN THE VECTOR"
-						<< std::endl;
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
-		try
-		{
-			easyfind(vec, 3);
-			std::cout	<< "FOUND: 3 IS IN THE VECTOR"
-						<< std::endl;
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
+		Span sp = Span(5);
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
 	}
 
+	/*RANGE EXAMPLES*/
 	{
-		/*igual que en el ejemplo anterior pero lo aplicamos desde un array
-		de ints tipico de C*/
-		int					array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		std::vector<int>	arr(array, array + 10);
+		Span sp = Span(10000);
 
+		/*CORRECT*/
 		try
 		{
-			easyfind(arr, 8);
-			std::cout	<< "FOUND: 8 IS IN THE VECTOR"
-						<< std::endl;
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
-		try
-		{
-			easyfind(arr, 81);
-			std::cout	<< "FOUND: 81 IS IN THE VECTOR"
-						<< std::endl;
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
-	}
-
-	{
-		std::list<int>	list;
-		list.push_back(3);
-		list.push_back(7);
-
-		try
-		{
-			easyfind(list, 3);
-			std::cout	<< "FOUND: 3 IS IN THE VECTOR"
-						<< std::endl;
+			std::vector<int>	nums;
+			for (int i = 0; i < 10000; i++)
+				nums.push_back(i);
+			sp.addRange(nums.begin(), nums.end());
+			std::cout	<< sp.shortestSpan() << std::endl
+						<< sp.longestSpan() << std::endl;
 		}
 		catch(const std::exception& e)
 		{
 			std::cerr << e.what() << '\n';
 		}
 
+		/*INCORRECT (THE CONTAINER IS SMALLER THAN THE RANGE)*/
 		try
 		{
-			easyfind(list, 4);
-			std::cout	<< "FOUND: 4 IS IN THE VECTOR"
-						<< std::endl;
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
-		try
-		{
-			easyfind(list, 78);
-			std::cout	<< "FOUND: 78 IS IN THE VECTOR"
-						<< std::endl;
+			std::vector<int>	nums;
+			for (int i = 0; i < 19999; i++)
+				nums.push_back(i);
+			sp.addRange(nums.begin(), nums.end());
+			std::cout	<< sp.shortestSpan() << std::endl
+						<< sp.longestSpan() << std::endl;
 		}
 		catch(const std::exception& e)
 		{
@@ -105,27 +49,4 @@ int	main()
 		}
 	}
 	return (0);
-
-	/*PARA ESTE CASO NO FUNCIONA PORQUE LA PLANTILLA TEMPLATE NO
-	RECONOCE EL ARRAY TIPICO DE C COMO UN OBJETO:
-	
-	EL COMPILADOR TRATA DE TRADUCIR EL TEMPLATE A PARTIR DEL ARGUMENTO:
-	
-	T = int[10]
-	
-	AQUI T NO ES UN CONTENEDOR DE NADA, ES SOLO UN ARRAY, NO PODEMOS DEVOLVER UN
-	ITERADOR typename int[10]::const_iterator*/
-
-	// {
-	// 	int	arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-	// 	try
-	// 	{
-	// 		easyfind(arr, 1);
-	// 	}
-	// 	catch(const std::exception& e)
-	// 	{
-	// 		std::cerr << e.what() << '\n';
-	// 	}
-	// }
 }
