@@ -54,23 +54,54 @@ void	BitcoinExchange::parseFormat(const std::string &date)
 void	BitcoinExchange::parseNumbers(const std::string &date)
 {
 	/*PARSEA QUE LOS NUMEROS SEAN VALIDOS*/
-	std::string	y;
-	std::string	m;
-	std::string	d;
+	std::string	y = date.substr(0, 4);
+	std::string	m = date.substr(5, 2);
+	std::string	d = date.substr(8, 2);
 
-	for (int i = 0; i < 10; i++)
-	{
-		if (i < 4)
-			y[i] = date[i];
-		else if (i > 4 && i < 7)
-			m[i] = date[i];
-		else
-			d[i] = date[i];
-	}
 	int year = atoi(y.c_str());
-	int mouth = atoi(m.c_str());
+	int mounth = atoi(m.c_str());
 	int day = atoi(d.c_str());
-	if (year < )
+	if (mounth < 1 || mounth > 12)
+		throw Error("Error. Mounth set incorrectly.\n");
+	else if (day < 1 || day > 31)
+		throw Error("Error. Day set incorrectly.\n");
+	else {
+		/*para este punto hemos barajado los dias y los meses
+		necesito manejar los meses que sean de 1 - 30, 1 - 31 
+		y 1 - 28/29 si es bisiesto*/
+		switch (mounth) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				break;
+
+			case 2:
+				/*febrero, contemplar bisiestos y acotar a 28 en general*/
+				if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+					if (day > 29)
+						throw Error("Error. incorrect day.\n");
+				}
+				else
+					if (day > 28)
+						throw Error("Error. incorrect day.\n");
+				break;
+
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				if (day > 30)
+					throw Error("Error. Day setted incorrectly in this mounth.\n");
+				break;
+
+			default:
+				break;
+		}
+	}
 }
 
 void	BitcoinExchange::parseBitcoin(const std::string &value)
