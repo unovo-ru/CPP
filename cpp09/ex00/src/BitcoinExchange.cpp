@@ -9,7 +9,7 @@ BitcoinExchange::BitcoinExchange(const std::string &dataBase)
 	y le pasamos c_str() */
 	std::ifstream	db(dataBase.c_str());
 	if (!db)
-		throw Error("Error. could not open database file.");
+		throw Error("Error: could not open database file.");
 	std::string	buffer;
 	std::getline(db, buffer); 	//esto sirve para un descarte rapido de la
 								//primera linea "date,exchange_rate"
@@ -20,7 +20,7 @@ BitcoinExchange::BitcoinExchange(const std::string &dataBase)
 		date,value*/
 		size_t	dot = buffer.find(",");
 		if (dot == std::string::npos)	//me aseguro de que si no encuentra la coma devuelva error
-			throw Error("Error. Corrupted data base.");
+			throw Error("Error: corrupted data base.");
 		std::string	date = buffer.substr(0, dot);
 		float	value = atof(buffer.substr(dot + 1, buffer.length() - (dot + 1)).c_str());
 		_mapKey[date] = value;
@@ -47,7 +47,7 @@ void	BitcoinExchange::parseFormat(const std::string &date)
 	for (size_t i = 0; i < date.length(); i++)
 		if (i != 4 && i != 7)
 			if (!isdigit(date[i]))
-				throw Error("Error. Invalid format in the date.");
+				throw Error("Error: invalid format in the date.");
 		
 }
 
@@ -64,7 +64,7 @@ void	BitcoinExchange::parseNumbers(const std::string &date)
 	if (mounth < 1 || mounth > 12)
 		throw Error("Error: bad input => " + date);
 	if (day < 1 || day > 31)
-		throw Error("Error : bad input => " + date);
+		throw Error("Error: bad input => " + date);
 		/*para este punto hemos barajado los dias y los meses
 		necesito manejar los meses que sean de 1 - 30, 1 - 31 
 		y 1 - 28/29 si es bisiesto*/
@@ -100,7 +100,7 @@ void	BitcoinExchange::parseNumbers(const std::string &date)
 	}
 }
 
-void	BitcoinExchange::parseBitcoin(const std::string &bitcoin)
+void	BitcoinExchange::parseBitcoin(const std::string &date, const std::string &bitcoin)
 {
 	/*PARSEA QUE PARA QUE LOS NUMEROS NO SE VAYAN DE MADRE
 	NO HAYA NINGUNO IGUAL O MAYOR A 1000*/
@@ -119,18 +119,18 @@ void	BitcoinExchange::parseBitcoin(const std::string &bitcoin)
 				if (!point)
 					point = true;
 				else
-					throw Error("Error: bad input => " + bitcoin);
+					throw Error("Error: bad input => " + date);
 			}
 			else
-				throw Error("Error: bad input => " + bitcoin);
+				throw Error("Error: bad input => " + date);
 		}
 	}
 	/*para este momento todo es un numero y si acaso un solo punto*/
 	float	bitcoinVal = atof(bitcoin.c_str());
 	if (bitcoinVal > 1000)
-		throw Error("Error. too large number.");
+		throw Error("Error: too large a number.");
 	if (bitcoinVal < 0)
-		throw Error("Error. not a positive number.");
+		throw Error("Error: not a positive number.");
 }
 
 void	BitcoinExchange::parseDate(const std::string &date)
@@ -167,7 +167,7 @@ float	BitcoinExchange::getRate(const std::string &date) const
 	if (it != _mapKey.end() && it->first == date)
 		return (it->second);
 	else if (it == _mapKey.begin())
-		throw Error("Error. There is no date available.");
+		throw Error("Error: bad input => " + date);
 	--it;
 	return (it->second);
 }
@@ -189,7 +189,7 @@ void	BitcoinExchange::parse(const std::string &input)
 	std::string	date = input.substr(0, bit);
 	std::string	bitcoin = input.substr(bit + 3, input.length() - (bit + 3));
 	parseDate(date);
-	parseBitcoin(bitcoin);
+	parseBitcoin(date, bitcoin);
 	float	rate = getRate(date);
 	float	bitcoinValue = rate * atof(bitcoin.c_str());
 	std::cout	<< date << " => " << bitcoin << " = "

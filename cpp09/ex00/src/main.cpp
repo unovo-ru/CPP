@@ -13,7 +13,7 @@ int	main(int ac, char **av)
 			return (std::cerr	<< "Error, could not open file.\n", 1);
 		std::string	line;
 		getline(input, line);
-		if (line != "date | date")
+		if (line != "date | value")
 		{
 			try
 			{

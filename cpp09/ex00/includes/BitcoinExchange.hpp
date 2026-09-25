@@ -100,7 +100,7 @@ class BitcoinExchange
 
 		void	parseFormat(const std::string &date);		//parsea el formato
 		void	parseNumbers(const std::string &date);		//parsea la existencia de los meses y dias
-		void	parseBitcoin(const std::string &value);		// el numero de bitcoin no puede superar los 1000
+		void	parseBitcoin(const std::string &date, const std::string &value);		// el numero de bitcoin no puede superar los 1000
 		void	parseDate(const std::string &date);	//en esta llamo a las anteriores para unificarlas
 		float	getRate(const std::string &date) const;	//metodo que busca la entrada en la base de datos que corresponde
 
