@@ -68,8 +68,8 @@ LA CONCLUSION LOGICA:
 */
 
 
-#ifndef BITCOINEXCHANGE_HPP
-#define BITCOINEXCHANGE_HPP
+#ifndef RPN_HPP
+#define RPN_HPP
 
 #include <algorithm>
 #include <exception>
@@ -81,32 +81,18 @@ LA CONCLUSION LOGICA:
 #include <list>
 #include <cctype>
 
-class BitcoinExchange
+class RPN
 {
 	private:
 
-		std::map<std::string, float>	_mapKey;	//contenedor map que guarda
-		BitcoinExchange();		//como no tiene sentido que este constructor exista dado
-								//que con la creacion ya estoy incorporando la base de datos
-								//para que no de errores el base lo dejo en la privada
-
-
+	
 	public:
 	
-		BitcoinExchange(const std::string &dataBase);
-		BitcoinExchange(const BitcoinExchange &other);
-		BitcoinExchange &operator=(const BitcoinExchange &other);
-		~BitcoinExchange();
+		RPN();
+		RPN(const RPN &other);
+		RPN &operator=(const RPN &other);
+		~RPN();
 
-		void	parseFormat(const std::string &date);		//parsea el formato
-		void	parseNumbers(const std::string &date);		//parsea la existencia de los meses y dias
-		void	parseBitcoin(const std::string &value);		// el numero de bitcoin no puede superar los 1000
-		void	parseDate(const std::string &date);	//en esta llamo a las anteriores para unificarlas
-		float	getRate(const std::string &date) const;	//metodo que busca la entrada en la base de datos que corresponde
-
-		void	parse(const std::string &input);	//llama a todas las demas funciones de parseo
-
-		
 		class Error : public std::exception
 		{
 			private:
