@@ -71,27 +71,29 @@ LA CONCLUSION LOGICA:
 #ifndef RPN_HPP
 #define RPN_HPP
 
-#include <algorithm>
-#include <exception>
-#include <string>
 #include <iostream>
-#include <fstream>
-#include <map>
-#include <vector>
-#include <list>
-#include <cctype>
+#include <string>
+#include <stack>
+#include <exception>
+#include <cstdlib>
 
 class RPN
 {
 	private:
 
-	
+		std::stack<int>		_stack;
+		RPN();
+		bool	isOperator(char c) const;
+		void	calculate(char op);
+
 	public:
 	
-		RPN();
+		RPN(const std::string &input);
 		RPN(const RPN &other);
 		RPN &operator=(const RPN &other);
 		~RPN();
+
+		void	execute(const std::string &input);
 
 		class Error : public std::exception
 		{
