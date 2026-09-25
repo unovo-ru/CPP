@@ -41,7 +41,21 @@ BitcoinExchange::~BitcoinExchange() {}
 void	BitcoinExchange::parseFormat(const std::string &date)
 {
 	/*PARSEA EL FORMATO
-	YYYY-MM-DD*/
+	YYYY-MM-DD
+	Bajo el estándar estándar internacional ISO 8601
+	(que es el que sigue el formato YYYY-MM-DD del subject),
+	el año consta estrictamente de 4 dígitos
+	el año 10.000 no esta contemplado en este formato asi que
+	no se contempla
+	
+	para el caso de años en los que no existia bitcoin:
+	El subject indica la siguiente regla para fechas inexistentes en la base
+	de datos:
+
+		"If the date used in the input does not exist in your DB then
+		you must use the closest date contained in your DB. Be careful to
+		use the lower date and not the upper one."*/
+
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 		throw Error("Error: bad input => " + date);
 	for (size_t i = 0; i < date.length(); i++)
