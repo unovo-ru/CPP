@@ -9,7 +9,7 @@ BitcoinExchange::BitcoinExchange(const std::string &dataBase)
 	y le pasamos c_str() */
 	std::ifstream	db(dataBase.c_str());
 	if (!db)
-		throw Error("Error. could not open database file.");
+		throw Error("Error. could not open database file.\n");
 	std::string	buffer;
 	std::getline(db, buffer); 	//esto sirve para un descarte rapido de la
 								//primera linea "date,exchange_rate"
@@ -20,7 +20,7 @@ BitcoinExchange::BitcoinExchange(const std::string &dataBase)
 		date,value*/
 		size_t	dot = buffer.find(",");
 		if (dot == std::string::npos)	//me aseguro de que si no encuentra la coma devuelva error
-			throw Error("Error. Corrupted data base.");
+			throw Error("Error. Corrupted data base.\n");
 		std::string	date = buffer.substr(0, dot);
 		float	value = atof(buffer.substr(dot + 1, buffer.length() - (dot + 1)).c_str());
 		_mapKey[date] = value;
@@ -43,11 +43,11 @@ void	BitcoinExchange::parseFormat(const std::string &date)
 	/*PARSEA EL FORMATO
 	YYYY-MM-DD*/
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
-		throw Error("Error: bad input => " + date);
+		throw Error("Error. Invalid format.\n");
 	for (size_t i = 0; i < date.length(); i++)
 		if (i != 4 && i != 7)
 			if (!isdigit(date[i]))
-				throw Error("Error. Invalid format in the date.");
+				throw Error("Error. Invalid format in the date.\n");
 		
 }
 
@@ -62,9 +62,9 @@ void	BitcoinExchange::parseNumbers(const std::string &date)
 	int mounth = atoi(m.c_str());
 	int day = atoi(d.c_str());
 	if (mounth < 1 || mounth > 12)
-		throw Error("Error: bad input => " + date);
+		throw Error("Error. Mounth set incorrectly.\n");
 	if (day < 1 || day > 31)
-		throw Error("Error : bad input => " + date);
+		throw Error("Error. Day set incorrectly.\n");
 		/*para este punto hemos barajado los dias y los meses
 		necesito manejar los meses que sean de 1 - 30, 1 - 31 
 		y 1 - 28/29 si es bisiesto*/
@@ -83,17 +83,17 @@ void	BitcoinExchange::parseNumbers(const std::string &date)
 			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
 			{
 				if (day > 29)
-					throw Error("Error: bad input => " + date);
+					throw Error("Error. incorrect day.\n");
 			}
 			else if (day > 28)
-				throw Error("Error: bad input => " + date);
+				throw Error("Error. incorrect day.\n");
 			break;
 		case 4:
 		case 6:
 		case 9:
 		case 11:
 			if (day > 30)
-				throw Error("Error: bad input => " + date);
+				throw Error("Error. Day setted incorrectly in this mounth.\n");
 			break;
 		default:
 			break;
@@ -106,7 +106,7 @@ void	BitcoinExchange::parseBitcoin(const std::string &bitcoin)
 	NO HAYA NINGUNO IGUAL O MAYOR A 1000*/
 	// size_t	bit = value.find(" | ");
 	// if (bit == std::string::npos)
-	// 	throw Error("Error. incorrect format.");
+	// 	throw Error("Error. incorrect format.\n");
 	// std::string	date = value.substr(0, bit);
 	// std::string	bitcoin = value.substr(bit + 3, value.length() - (bit + 3));
 	bool	point = false;
@@ -114,23 +114,21 @@ void	BitcoinExchange::parseBitcoin(const std::string &bitcoin)
 	{
 		if (!isdigit(bitcoin[i]))
 		{
-			if (bitcoin[i] == '.' || bitcoin[i] == '-')
+			if (bitcoin[i] == '.')
 			{
 				if (!point)
 					point = true;
 				else
-					throw Error("Error: bad input => " + bitcoin);
+					throw Error("Error. bitcoin format is invalid.\n");
 			}
 			else
-				throw Error("Error: bad input => " + bitcoin);
+				throw Error("Error. bitcoin format is invalid.\n");
 		}
 	}
 	/*para este momento todo es un numero y si acaso un solo punto*/
 	float	bitcoinVal = atof(bitcoin.c_str());
-	if (bitcoinVal > 1000)
-		throw Error("Error. too large number.");
-	if (bitcoinVal < 0)
-		throw Error("Error. not a positive number.");
+	if (bitcoinVal > 1000 || bitcoinVal < 0)
+		throw Error("Error. bitcoin is not correct.\n");
 }
 
 void	BitcoinExchange::parseDate(const std::string &date)
@@ -167,7 +165,7 @@ float	BitcoinExchange::getRate(const std::string &date) const
 	if (it != _mapKey.end() && it->first == date)
 		return (it->second);
 	else if (it == _mapKey.begin())
-		throw Error("Error. There is no date available.");
+		throw Error("Error. There is no date available.\n");
 	--it;
 	return (it->second);
 }
@@ -175,17 +173,15 @@ float	BitcoinExchange::getRate(const std::string &date) const
 void	BitcoinExchange::parse(const std::string &input)
 {
 	/*LLAMA A TODAS LAS DEMAS FUNCIONES DE PARSEO Y SEPARA POR LA
-	PIPE ADEMAS DE ASEGURARSE DE QUE EL INPUT RESPETA QUE LA PRIMERA
+	PIPE ADEMAS DE ASEGURARSE DE QUE EL PINPUT RESPETA QUE LA PRIMERA
 	LINEA SEA:
 	
 	date | value
 	
 	*/
-	if (input.empty())
-		return ;
 	size_t	bit = input.find(" | ");
 	if (bit == std::string::npos)
-		throw Error("Error: bad input => " + input);
+		throw Error("Error. incorrect format.\n");
 	std::string	date = input.substr(0, bit);
 	std::string	bitcoin = input.substr(bit + 3, input.length() - (bit + 3));
 	parseDate(date);
