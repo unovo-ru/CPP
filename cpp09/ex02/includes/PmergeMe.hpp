@@ -68,33 +68,59 @@ LA CONCLUSION LOGICA:
 */
 
 
-#ifndef RPN_HPP
-#define RPN_HPP
+#ifndef PMERGEME_HPP
+#define PMERGEME_HPP
 
-#include <iostream>
-#include <string>
-#include <stack>
-#include <exception>
-#include <cstdlib>
-#include <list>
+# include <iostream>
+# include <string>
+# include <exception>
+# include <vector>
+# include <algorithm>
+# include <utility>
+# include <climits>
+# include <sys/time.h>
+# include <ctime>
+# include <iomanip>
+# include <sstream>
+# include <cctype>
+# include <deque>
 
-class RPN
+class PmergeMe
 {
 	private:
 
-		std::stack<int, std::list<int> >		_stack;
-		RPN();
-		bool	isOperator(char c) const;
-		void	calculate(char op);
+		std::vector<int>	_vec;
+		std::deque<int>		_deq;
 
+		/*metodo auxiliar de template del algoritmo Ford-Johnson*/
+		template <typename container>
+		void	sort(container &c);
+
+		PmergeMe();
+		
 	public:
-	
-		RPN(const std::string &input);
-		RPN(const RPN &other);
-		RPN &operator=(const RPN &other);
-		~RPN();
+		
+		PmergeMe(const PmergeMe &other);
+		PmergeMe(int ac, char **av);
+		PmergeMe &operator=(const PmergeMe &other);
+		~PmergeMe();
 
-		void	execute(const std::string &input);
+		void	run();		//inicia el proceso
+		void	parseInput(int ac, char **av);		//parsea el input
+		bool	isValidNum(std::string &str, long int &val);		//auxiliar para parseo
+		void	hasDuplicates() const;
+		void	printSequence() const;
+
+		/*TEMPLATES*/
+		// Algoritmo Ford-Johnson (implementado en PmergeMe.tpp)
+		template<typename Container>
+		void	forJonhsonSort(Container &c);
+
+		template<typename Container>
+		void	binaryInsert(Container &mainChain, int element, size_t maxSearchRange);
+
+		template<typename Container>
+		std::vector<size_t>	buildInsertionOrder(size_t pendSize);
 
 		class Error : public std::exception
 		{
@@ -114,6 +140,6 @@ class RPN
 		};
 };
 
-
+#include "PmergeMe.tpp"
 
 #endif
