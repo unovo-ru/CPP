@@ -62,3 +62,69 @@ Lo importante es que puedas explicar tu elección.
 Ceros a la izquierda: aceptarlos es lo que sale por defecto con "solo dígitos".
 Si prefieres prohibirlos, es una comprobación más.
 */
+
+PmergeMe::PmergeMe():  : _vec(), _deq() {}
+
+PmergeMe::PmergeMe(const PmergeMe &other) : _vec(other._vec), _deq(other._deq){}
+
+PmergeMe::PmergeMe(int ac, char **av)
+{
+	parseInput(ac, av);
+}
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
+{
+	if (this != &other)
+	{
+		_vec = other._vec;
+		_deq = other._deq;
+	}
+	return (*this);
+}
+
+PmergeMe::~PmergeMe() {}
+
+
+void	PmergeMe::parseInput(int ac, char **av)
+{
+	if (ac < 2)
+		throw Error("Error");
+	for (int i = 1; i < ac; i++)
+	{
+		long int val = 0;
+		if (!isValidNum(av[i], val))
+			throw Error("Error");
+		_vec.push_back(static_cast<int>(val));
+		_deq.push_back(static_cast<int>(val));
+	}
+	hasDuplicates();
+}
+
+bool	PmergeMe::isValidNum(const std::string &str, long int &val)
+{
+	if (str.empty())
+		return (false);
+	for (size_t i = 0; i < str.length(); i++)
+		if (!std::isdigit(static_cast<unsigned char>(str[i])))
+			return (false);
+	val = std::strtol(str.c_str(), NULL, 10);
+	if (val <= 0 || val > INT_MAX)
+		return (false);
+	return (true);
+}
+
+void	PmergeMe::hasDuplicates() const
+{
+	
+}
+
+void	PmergeMe::printSequence() const
+{
+	/*PENDIETE*/
+}
+
+
+void	PmergeMe::run()
+{
+	/*PENDIETE*/
+}

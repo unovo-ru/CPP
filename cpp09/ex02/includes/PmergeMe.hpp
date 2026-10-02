@@ -84,6 +84,7 @@ LA CONCLUSION LOGICA:
 # include <sstream>
 # include <cctype>
 # include <deque>
+# include <limits>
 
 class PmergeMe
 {
@@ -92,11 +93,63 @@ class PmergeMe
 		std::vector<int>	_vec;
 		std::deque<int>		_deq;
 
-		/*metodo auxiliar de template del algoritmo Ford-Johnson*/
-		template <typename container>
-		void	sort(container &c);
+/*TEMPLATES*/
+		// Algoritmo Ford-Johnson (implementado en PmergeMe.tpp)
+		/*Toma una secuencia desordenada y la ordena siguiendo
+		estrictamente los pasos de Ford-Johnson:*/
+		template<typename Container>
+		void	fordJohnsonSort(Container &c);
+		/*PARAMETROS:
+		Container &c:
+		Qué es: Es una referencia mutable al
+		contenedor a ordenar (será un std::vector<int> o un
+		std::deque<int>).*/
+
+		/*-------------------------------------------------------*/
+
+		/*Es la función encargada de insertar un elemento en una
+		lista que ya está ordenada minimizando el número de comparaciones
+		mediante búsqueda binaria*/
+		template<typename Container>
+		void	binaryInsert(Container &mainChain, int element, size_t maxSearchRange);
+
+		/*Container &mainChain:
+
+		La secuencia que actualmente está ordenada y en la que queremos meter el nuevo número.
+
+
+		int element:
+
+		El valor numérico concreto (un perdedor de la lista pend o el straggler)
+		que queremos introducir en la cadena.
+		
+		size_t maxSearchRange:
+
+		Este es el parámetro clave de Ford-Johnson. Es el límite superior del
+		rango de búsqueda dentro de mainChain.*/
+
+
+
+		/*decide en qué orden cronológico se van a insertar los perdedores.*/
+		std::vector<size_t>	buildInsertionOrder(size_t pendSize);
+
+		/*size_t pendSize:
+
+		La cantidad total de elementos perdedores que tenemos pendientes
+		de insertar en esa ronda.
+		
+		std::vector<size_t>:Devuelve un vector de enteros con los índices
+		(en base 0) listos para iterar: por ejemplo, si hay 4 perdedores
+		pendientes ($b_2, b_3, b_4, b_5$), devolverá el vector
+		con los índices [2, 1, 4, 3].*/
 
 		PmergeMe();
+
+
+		void	parseInput(int ac, char **av);		//parsea el input
+		bool	isValidNum(const std::string &str, long int &val);		//auxiliar para parseo
+		void	hasDuplicates() const;
+		void	printSequence() const;
 		
 	public:
 		
@@ -104,23 +157,8 @@ class PmergeMe
 		PmergeMe(int ac, char **av);
 		PmergeMe &operator=(const PmergeMe &other);
 		~PmergeMe();
-
+		
 		void	run();		//inicia el proceso
-		void	parseInput(int ac, char **av);		//parsea el input
-		bool	isValidNum(std::string &str, long int &val);		//auxiliar para parseo
-		void	hasDuplicates() const;
-		void	printSequence() const;
-
-		/*TEMPLATES*/
-		// Algoritmo Ford-Johnson (implementado en PmergeMe.tpp)
-		template<typename Container>
-		void	forJonhsonSort(Container &c);
-
-		template<typename Container>
-		void	binaryInsert(Container &mainChain, int element, size_t maxSearchRange);
-
-		template<typename Container>
-		std::vector<size_t>	buildInsertionOrder(size_t pendSize);
 
 		class Error : public std::exception
 		{
