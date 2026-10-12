@@ -63,7 +63,7 @@ Ceros a la izquierda: aceptarlos es lo que sale por defecto con "solo dígitos".
 Si prefieres prohibirlos, es una comprobación más.
 */
 
-PmergeMe::PmergeMe():  : _vec(), _deq() {}
+PmergeMe::PmergeMe(): _vec(), _deq() {}
 
 PmergeMe::PmergeMe(const PmergeMe &other) : _vec(other._vec), _deq(other._deq){}
 
@@ -115,16 +115,104 @@ bool	PmergeMe::isValidNum(const std::string &str, long int &val)
 
 void	PmergeMe::hasDuplicates() const
 {
-	
+	if (_vec.size() <= 1)
+		return ;
+	std::vector<int> sortedCopy = _vec;
+	std::sort(sortedCopy.begin(), sortedCopy.end());
+	for (size_t i = 0; i + 1 < sortedCopy.size(); i++)
+		if (sortedCopy[i] == sortedCopy[i + 1])
+			throw Error("Error");
 }
 
 void	PmergeMe::printSequence() const
 {
-	/*PENDIETE*/
+	for (size_t i = 0; i < _vec.size(); i++)
+	{
+		std::cout	<< _vec[i];
+		if (i < _vec.size() - 1)
+			std::cout	<< " ";
+	}
+	std::cout	<< std::endl;
 }
 
 
 void	PmergeMe::run()
 {
-	/*PENDIETE*/
+	std::cout	<< "Before: ";
+	printSequence();
+
+	/*MEDICION EN VECTOR*/
+	// -calcular el tiempo al incio (init)
+	struct timeval initVec, endVec;
+	gettimeofday(&initVec, NULL);
+	
+	// -algoritmo de ordenacion fordJohnson(_vec)
+	
+	// -calcular de nuvo el tiempo (endVec)
+	gettimeofday(&endVec, NULL);
+	double finalTimeVec = (endVec.tv_sec - initVec.tv_sec) * 1000000.0 + (endVec.tv_usec - initVec.tv_usec);
+	std::cout	<< "After:  ";
+	printSequence();
+
+	/*MEDICION EN DEQUE*/
+	struct timeval initDeq, endDeq;
+	gettimeofday(&initDeq, NULL);
+	
+	// -algoritmo de ordenacion fordJohnson(_deq)
+	
+	gettimeofday(&endDeq, NULL);
+	double finalTimeDeq = (endDeq.tv_sec - initDeq.tv_sec) * 1000000.0 + (endDeq.tv_usec - initDeq.tv_usec);
+
+	//impresion de tiempos
+	std::cout	<< "Time to process a range of " << _vec.size()
+				<< " elements with std::vector : "
+				<< finalTimeVec << " us"
+				<< std::endl;
+	std::cout	<< "Time to process a range of " << _deq.size()
+				<< " elements with std::deque : "
+				<< finalTimeDeq << " us"
+				<< std::endl;
+
+}
+
+std::vector<size_t>	PmergeMe::buildInsertionOrder(size_t pendSize)
+{
+	/*función buildInsertionOrder(pendSize):
+	crear vector de salida "orden"
+
+	// Paso 1: Caso base
+	si pendSize <= 1:
+		devolver orden
+
+	// Paso 2: Generar números de Jacobsthal suficientes
+	crear lista "jacob"
+	anterior = 1
+	actual = 3
+
+	mientras anterior < pendSize:
+		añadir actual a "jacob"
+		siguiente = actual + (2 * anterior)
+		anterior = actual
+		actual = siguiente
+
+	// Paso 3: Construir el orden de índices hacia atrás
+	ultimo_procesado = 1
+
+	para cada valor J en "jacob":
+		// Determinar el techo del bloque actual
+		si J > pendSize:
+			techo = pendSize
+		si no:
+			techo = J
+
+		// Insertar en orden decreciente
+		para k desde techo bajando hasta (ultimo_procesado + 1):
+			añadir (k - 1) a "orden"
+
+		ultimo_procesado = J
+		si ultimo_procesado >= pendSize:
+			terminar bucle
+
+	devolver orden
+*/
 }
