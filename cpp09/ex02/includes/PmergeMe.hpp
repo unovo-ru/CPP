@@ -149,7 +149,7 @@ class PmergeMe
 		void	parseInput(int ac, char **av);		//parsea el input
 		bool	isValidNum(const std::string &str, long int &val);		//auxiliar para parseo
 		void	hasDuplicates() const;
-		void	printSequence() const;
+		// void	printSequence() const;
 		
 	public:
 		
@@ -157,7 +157,9 @@ class PmergeMe
 		PmergeMe(int ac, char **av);
 		PmergeMe &operator=(const PmergeMe &other);
 		~PmergeMe();
-		
+
+
+		void	printSequence() const;
 		void	run();		//inicia el proceso
 
 		class Error : public std::exception

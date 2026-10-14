@@ -147,6 +147,7 @@ void	PmergeMe::run()
 	gettimeofday(&initVec, NULL);
 	
 	// -algoritmo de ordenacion fordJohnson(_vec)
+	fordJohnsonSort(_vec);
 	
 	// -calcular de nuvo el tiempo (endVec)
 	gettimeofday(&endVec, NULL);
@@ -159,7 +160,8 @@ void	PmergeMe::run()
 	gettimeofday(&initDeq, NULL);
 	
 	// -algoritmo de ordenacion fordJohnson(_deq)
-	
+	fordJohnsonSort(_deq);
+
 	gettimeofday(&endDeq, NULL);
 	double finalTimeDeq = (endDeq.tv_sec - initDeq.tv_sec) * 1000000.0 + (endDeq.tv_usec - initDeq.tv_usec);
 
@@ -177,42 +179,71 @@ void	PmergeMe::run()
 
 std::vector<size_t>	PmergeMe::buildInsertionOrder(size_t pendSize)
 {
-	/*función buildInsertionOrder(pendSize):
-	crear vector de salida "orden"
+	// crear vector de salida "orden"
+	std::vector<size_t> order;
 
 	// Paso 1: Caso base
-	si pendSize <= 1:
-		devolver orden
+	// si pendSize <= 1:
+		// devolver orden
+	if (pendSize <= 1)
+		return (order);
 
 	// Paso 2: Generar números de Jacobsthal suficientes
-	crear lista "jacob"
-	anterior = 1
-	actual = 3
+	// crear lista "jacob"
+	// anterior = 1
+	// actual = 3
+	std::vector<size_t> jacob;
+	size_t before = 1;
+	size_t current = 3;
+	size_t next = 0;
 
-	mientras anterior < pendSize:
-		añadir actual a "jacob"
-		siguiente = actual + (2 * anterior)
-		anterior = actual
-		actual = siguiente
+	// mientras anterior < pendSize:
+		// añadir actual a "jacob"
+		// siguiente = actual + (2 * anterior)
+		// anterior = actual
+		// actual = siguiente
+	while (before < pendSize)
+	{
+		jacob.push_back(current);
+		next = current + (2 * before);
+		before = current;
+		current = next;
+	}
 
 	// Paso 3: Construir el orden de índices hacia atrás
-	ultimo_procesado = 1
+	// ultimo_procesado = 1
+	size_t last = 1;	//representa que el perdedor mas pequeño ya fue insertado al principio
+						//el proximo bloque debe detenerse justo antes de volver a tocar el 1
 
-	para cada valor J en "jacob":
+
+	// para cada valor J en "jacob":
 		// Determinar el techo del bloque actual
-		si J > pendSize:
-			techo = pendSize
-		si no:
-			techo = J
-
+		// si J > pendSize:
+			// techo = pendSize
+		// si no:
+			// techo = J
+	for (size_t i = 0; i < jacob.size(); i++)
+	{
+		size_t limit;
+		size_t J = jacob[i];
+	
+		if (J > pendSize)
+			limit = pendSize;
+		else
+			limit = J;
 		// Insertar en orden decreciente
-		para k desde techo bajando hasta (ultimo_procesado + 1):
-			añadir (k - 1) a "orden"
+		// para k desde techo bajando hasta (ultimo_procesado + 1):
+			// añadir (k - 1) a "orden"
+		for (size_t k = limit; k > last; k--)
+			order.push_back(k - 1);
 
-		ultimo_procesado = J
-		si ultimo_procesado >= pendSize:
-			terminar bucle
-
-	devolver orden
-*/
+		// ultimo_procesado = J
+		// si ultimo_procesado >= pendSize:
+			// terminar bucle
+		last = J;
+		if (last >= pendSize)
+			break ;
+	}
+	// devolver orden
+	return (order);
 }
