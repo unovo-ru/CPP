@@ -37,6 +37,10 @@ void	PmergeMe::fordJohnsonSort(Container &c)
 
 	// crear lista de pares "pairs" (std::vector< std::pair<int, int> >)
 	//me permite usar los valores de a pares, se veia en el cpp00 ex02 (Account)
+	
+	/*HACER UN CONTAINER CON TEMPLATES, NO PUEDO USAR VECTOR SI DEBE FUNCIONAR TAMBIEN
+	PARA DEQUE*/
+	
 	std::vector< std::pair<int, int> > pairs;
 
 		
