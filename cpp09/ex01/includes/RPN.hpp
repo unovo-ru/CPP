@@ -104,13 +104,12 @@ class RPN
 
 
 			public:
-
-				Error(const std::string &message) : _message(message) {}
-				virtual ~Error() throw() {}
-				virtual const char	*what() const throw()
-				{
-					return (_message.c_str());
-				}
+				Error();
+				Error(const Error &other);
+				Error &operator=(const Error &other);
+				Error(const std::string &message);
+				virtual ~Error() throw();
+				virtual const char	*what() const throw();
 		};
 };
 

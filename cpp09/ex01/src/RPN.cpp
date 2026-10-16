@@ -72,3 +72,28 @@ void	RPN::calculate(char op)
 	}
 	_stack.push(res);
 }
+
+/*-----------OCF ERROR EXCEPTION-----------*/
+
+RPN::Error::Error(): std::exception(), _message(""){}
+
+RPN::Error::Error(const Error &other) : std::exception(other), _message(other._message){}
+
+RPN::Error &RPN::Error::operator=(const Error &other)
+{
+	if (this != &other)
+	{
+		std::exception::operator=(other);
+		_message = other._message;
+	}
+	return (*this);
+}
+
+RPN::Error::Error(const std::string &message) : _message(message) {}
+
+RPN::Error::~Error() throw() {}
+
+const char	*RPN::Error::what() const throw()
+{
+	return (_message.c_str());
+}
