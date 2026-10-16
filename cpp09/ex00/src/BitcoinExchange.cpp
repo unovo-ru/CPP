@@ -123,21 +123,25 @@ void	BitcoinExchange::parseBitcoin(const std::string &date, const std::string &b
 	// 	throw Error("Error. incorrect format.");
 	// std::string	date = value.substr(0, bit);
 	// std::string	bitcoin = value.substr(bit + 3, value.length() - (bit + 3));
+	if (bitcoin.empty())
+		throw Error("Error: bad input => " + date);
 	bool	point = false;
 	for (size_t i = 0; i < bitcoin.length(); i++)
 	{
-		if (!isdigit(bitcoin[i]))
+		unsigned char	c = static_cast<unsigned char>(bitcoin[i]);
+		if (isdigit(c))
+			continue;
+		bool	digitAfter = (i + 1 < bitcoin.length()
+			&& isdigit(static_cast<unsigned char>(bitcoin[i + 1])));
+		if (c == '-' && i == 0 && digitAfter)
+			continue ;
+		if (c == '.' && !point && i > 0
+			&& isdigit(static_cast<unsigned char>(bitcoin[i - 1])) && digitAfter)
 		{
-			if (bitcoin[i] == '.' || bitcoin[i] == '-')
-			{
-				if (!point)
-					point = true;
-				else
-					throw Error("Error: bad input => " + date);
-			}
-			else
-				throw Error("Error: bad input => " + date);
+			point = true;
+			continue ;
 		}
+		throw Error("Error: bad input => " + date);
 	}
 	/*para este momento todo es un numero y si acaso un solo punto*/
 	float	bitcoinVal = atof(bitcoin.c_str());
@@ -208,4 +212,29 @@ void	BitcoinExchange::parse(const std::string &input)
 	float	bitcoinValue = rate * atof(bitcoin.c_str());
 	std::cout	<< date << " => " << bitcoin << " = "
 				<< bitcoinValue << std::endl;
+}
+
+/*-----------OCF ERROR EXCEPTION-----------*/
+
+BitcoinExchange::Error::Error(): std::exception(), _message(""){}
+
+BitcoinExchange::Error::Error(const Error &other) : std::exception(other), _message(other._message){}
+
+BitcoinExchange::Error &BitcoinExchange::Error::operator=(const Error &other)
+{
+	if (this != &other)
+	{
+		std::exception::operator=(other);
+		_message = other._message;
+	}
+	return (*this);
+}
+
+BitcoinExchange::Error::Error(const std::string &message) : _message(message) {}
+
+BitcoinExchange::Error::~Error() throw() {}
+
+const char	*BitcoinExchange::Error::what() const throw()
+{
+	return (_message.c_str());
 }

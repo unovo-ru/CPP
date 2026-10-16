@@ -3,14 +3,14 @@
 int	main(int ac, char **av)
 {
 	if (ac != 2)
-		return (std::cerr	<< "Error, could not open file."
+		return (std::cerr	<< "Error: could not open file."
 							<< std::endl, 1);
 	try
 	{
 		BitcoinExchange btc("data.csv");
 		std::ifstream	input(av[1]);
 		if (!input.is_open())
-			return (std::cerr	<< "Error, could not open file.\n", 1);
+			return (std::cerr	<< "Error: could not open file.\n", 1);
 		std::string	line;
 		getline(input, line);
 		if (line != "date | value")
