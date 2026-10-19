@@ -247,3 +247,27 @@ std::vector<size_t>	PmergeMe::buildInsertionOrder(size_t pendSize)
 	// devolver orden
 	return (order);
 }
+/*-----------OCF ERROR EXCEPTION-----------*/
+
+PmergeMe::Error::Error(): std::exception(), _message(""){}
+
+PmergeMe::Error::Error(const Error &other) : std::exception(other), _message(other._message){}
+
+PmergeMe::Error &PmergeMe::Error::operator=(const Error &other)
+{
+	if (this != &other)
+	{
+		std::exception::operator=(other);
+		_message = other._message;
+	}
+	return (*this);
+}
+
+PmergeMe::Error::Error(const std::string &message) : _message(message) {}
+
+PmergeMe::Error::~Error() throw() {}
+
+const char	*PmergeMe::Error::what() const throw()
+{
+	return (_message.c_str());
+}

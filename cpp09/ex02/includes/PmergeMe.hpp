@@ -85,6 +85,7 @@ LA CONCLUSION LOGICA:
 # include <cctype>
 # include <deque>
 # include <limits>
+# include <memory>
 
 class PmergeMe
 {
@@ -97,8 +98,14 @@ class PmergeMe
 		// Algoritmo Ford-Johnson (implementado en PmergeMe.tpp)
 		/*Toma una secuencia desordenada y la ordena siguiendo
 		estrictamente los pasos de Ford-Johnson:*/
-		template<typename Container>
-		void	fordJohnsonSort(Container &c);
+		
+		/*MALA*/
+		template < template < typename, typename > class Container, typename T >
+		void	fordJohnsonSort(Container<T, std::allocator<T> > &c);
+
+
+
+
 		/*PARAMETROS:
 		Container &c:
 		Qué es: Es una referencia mutable al
@@ -170,13 +177,12 @@ class PmergeMe
 
 
 			public:
-
-				Error(const std::string &message) : _message(message) {}
-				virtual ~Error() throw() {}
-				virtual const char	*what() const throw()
-				{
-					return (_message.c_str());
-				}
+				Error();
+				Error(const Error &other);
+				Error &operator=(const Error &other);
+				Error(const std::string &message);
+				virtual ~Error() throw();
+				virtual const char	*what() const throw();
 		};
 };
 
