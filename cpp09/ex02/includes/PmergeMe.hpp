@@ -138,7 +138,8 @@ class PmergeMe
 
 
 		/*decide en qué orden cronológico se van a insertar los perdedores.*/
-		std::vector<size_t>	buildInsertionOrder(size_t pendSize);
+		template<template<typename, typename> class Container>
+		Container<size_t, std::allocator<size_t> >	buildInsertionOrder(size_t pendSize);
 
 		/*size_t pendSize:
 

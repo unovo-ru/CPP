@@ -206,7 +206,7 @@ void	PmergeMe::fordJohnsonSort(Container<T, std::allocator<T> > &c)
 	if (!pend.empty())
 		mainChain.insert(mainChain.begin(), pend[0]);
 	typedef Container<size_t, std::allocator<size_t> > IndexList;
-	IndexList order = buildInsertionOrder(pend.size());
+	IndexList order = buildInsertionOrder<Container>(pend.size());
 	for (size_t i = 0; i < order.size(); i++)
 	{
 		size_t idx = order[i];
@@ -242,6 +242,80 @@ void	PmergeMe::binaryInsert(Container &mainChain, int element, size_t maxSearchR
 			low = mid + 1;
 	}
 	mainChain.insert(mainChain.begin() + low, element);
+}
+
+
+template<template<typename, typename> class Container>
+Container<size_t, std::allocator<size_t> >	PmergeMe::buildInsertionOrder(size_t pendSize)
+{
+	// crear contenedor de salida "orden"
+	typedef Container<size_t, std::allocator<size_t> >		cont;
+	cont order;
+
+	// Paso 1: Caso base
+	// si pendSize <= 1:
+		// devolver orden
+	if (pendSize <= 1)
+		return (order);
+
+	// Paso 2: Generar números de Jacobsthal suficientes
+	// crear lista "jacob"
+	// anterior = 1
+	// actual = 3
+	cont jacob;
+	size_t before = 1;
+	size_t current = 3;
+	size_t next = 0;
+
+	// mientras anterior < pendSize:
+		// añadir actual a "jacob"
+		// siguiente = actual + (2 * anterior)
+		// anterior = actual
+		// actual = siguiente
+	while (before < pendSize)
+	{
+		jacob.push_back(current);
+		next = current + (2 * before);
+		before = current;
+		current = next;
+	}
+
+	// Paso 3: Construir el orden de índices hacia atrás
+	// ultimo_procesado = 1
+	size_t last = 1;	//representa que el perdedor mas pequeño ya fue insertado al principio
+						//el proximo bloque debe detenerse justo antes de volver a tocar el 1
+
+
+	// para cada valor J en "jacob":
+		// Determinar el techo del bloque actual
+		// si J > pendSize:
+			// techo = pendSize
+		// si no:
+			// techo = J
+	for (size_t i = 0; i < jacob.size(); i++)
+	{
+		size_t limit;
+		size_t J = jacob[i];
+	
+		if (J > pendSize)
+			limit = pendSize;
+		else
+			limit = J;
+		// Insertar en orden decreciente
+		// para k desde techo bajando hasta (ultimo_procesado + 1):
+			// añadir (k - 1) a "orden"
+		for (size_t k = limit; k > last; k--)
+			order.push_back(k - 1);
+
+		// ultimo_procesado = J
+		// si ultimo_procesado >= pendSize:
+			// terminar bucle
+		last = J;
+		if (last >= pendSize)
+			break ;
+	}
+	// devolver orden
+	return (order);
 }
 
 
