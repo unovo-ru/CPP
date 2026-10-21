@@ -91,6 +91,10 @@ class PmergeMe
 {
 	private:
 
+		std::vector<int>	_input;	//numeros validos, parseados pero sin ordenar aun
+		/*_input ni se ordena ni se mide. es para llenar ambos contenedores
+		desde el para que el llenado no se haga en el parseo, sino desde el momento
+		en el que empieza el reloj a correr*/
 		std::vector<int>	_vec;
 		std::deque<int>		_deq;
 
@@ -167,7 +171,7 @@ class PmergeMe
 		~PmergeMe();
 
 
-		void	printSequence() const;
+		void	printSequence(const std::vector<int> &seq) const;
 		void	run();		//inicia el proceso
 
 		class Error : public std::exception

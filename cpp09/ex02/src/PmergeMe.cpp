@@ -63,9 +63,9 @@ Ceros a la izquierda: aceptarlos es lo que sale por defecto con "solo dígitos".
 Si prefieres prohibirlos, es una comprobación más.
 */
 
-PmergeMe::PmergeMe(): _vec(), _deq() {}
+PmergeMe::PmergeMe(): _input(), _vec(), _deq() {}
 
-PmergeMe::PmergeMe(const PmergeMe &other) : _vec(other._vec), _deq(other._deq){}
+PmergeMe::PmergeMe(const PmergeMe &other) : _input(other._input), _vec(other._vec), _deq(other._deq){}
 
 PmergeMe::PmergeMe(int ac, char **av)
 {
@@ -76,6 +76,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
 	if (this != &other)
 	{
+		_input = other._input;
 		_vec = other._vec;
 		_deq = other._deq;
 	}
@@ -94,8 +95,11 @@ void	PmergeMe::parseInput(int ac, char **av)
 		long int val = 0;
 		if (!isValidNum(av[i], val))
 			throw Error("Error");
-		_vec.push_back(static_cast<int>(val));
-		_deq.push_back(static_cast<int>(val));
+		_input.push_back(static_cast<int>(val));
+		/*cambiamos y ponemos los valores en un unico contenedor
+		que estandarizamos*/
+		// _vec.push_back(static_cast<int>(val));
+		// _deq.push_back(static_cast<int>(val));
 	}
 	hasDuplicates();
 }
@@ -115,21 +119,22 @@ bool	PmergeMe::isValidNum(const std::string &str, long int &val)
 
 void	PmergeMe::hasDuplicates() const
 {
-	if (_vec.size() <= 1)
+	if (_input.size() <= 1)
 		return ;
-	std::vector<int> sortedCopy = _vec;
+	std::vector<int> sortedCopy = _input;
 	std::sort(sortedCopy.begin(), sortedCopy.end());
 	for (size_t i = 0; i + 1 < sortedCopy.size(); i++)
 		if (sortedCopy[i] == sortedCopy[i + 1])
 			throw Error("Error");
 }
 
-void	PmergeMe::printSequence() const
+void	PmergeMe::printSequence(const std::vector<int> &seq) const
 {
-	for (size_t i = 0; i < _vec.size(); i++)
+
+	for (size_t i = 0; i < seq.size(); i++)
 	{
-		std::cout	<< _vec[i];
-		if (i < _vec.size() - 1)
+		std::cout	<< seq[i];
+		if (i < seq.size() - 1)
 			std::cout	<< " ";
 	}
 	std::cout	<< std::endl;
@@ -138,12 +143,16 @@ void	PmergeMe::printSequence() const
 void	PmergeMe::run()
 {
 	std::cout	<< "Before: ";
-	printSequence();
+	printSequence(_input);
 
 	/*MEDICION EN VECTOR*/
 	// -calcular el tiempo al incio (init)
 	struct timeval initVec, endVec;
 	gettimeofday(&initVec, NULL);
+
+	/*llenamos el contenedor con los numeros de _input con el tiempo
+	ya corriendo*/
+	_vec.assign(_input.begin(), _input.end());
 	
 	// -algoritmo de ordenacion fordJohnson(_vec)
 	fordJohnsonSort(_vec);
@@ -152,11 +161,15 @@ void	PmergeMe::run()
 	gettimeofday(&endVec, NULL);
 	double finalTimeVec = (endVec.tv_sec - initVec.tv_sec) * 1000000.0 + (endVec.tv_usec - initVec.tv_usec);
 	std::cout	<< "After:  ";
-	printSequence();
+	printSequence(_vec);
 
 	/*MEDICION EN DEQUE*/
 	struct timeval initDeq, endDeq;
 	gettimeofday(&initDeq, NULL);
+
+	/*llenamos el contenedor con los numeros de _input con el tiempo
+	ya corriendo*/
+	_deq.assign(_input.begin(), _input.end());
 	
 	// -algoritmo de ordenacion fordJohnson(_deq)
 	fordJohnsonSort(_deq);

@@ -192,15 +192,14 @@ void	PmergeMe::fordJohnsonSort(Container<T, std::allocator<T> > &c)
 	for (size_t i = 0; i < winners.size(); i++)
 	{
 		T winner = winners[i];
-		for (size_t j = 0; j < pairs.size(); j++)
+		typename PairList::iterator	it = pairs.begin();
+		while (it != pairs.end() && it->first != winner)
+			it++;
+		if (it != pairs.end())
 		{
-			if (pairs[j].first == winner)
-			{
-				mainChain.push_back(winner);
-				pend.push_back(pairs[j].second);
-				pairs.erase(pairs.begin() + j);
-				break ;
-			}
+			mainChain.push_back(winner);
+			pend.push_back(it->second);
+			pairs.erase(it);
 		}
 	}
 	if (!pend.empty())
@@ -210,15 +209,20 @@ void	PmergeMe::fordJohnsonSort(Container<T, std::allocator<T> > &c)
 	for (size_t i = 0; i < order.size(); i++)
 	{
 		size_t idx = order[i];
-		size_t maxSearchRange = 0;
-		for (size_t k = 0; k < mainChain.size(); k++)
-		{
-			if (mainChain[k] == winners[idx])
-			{
-				maxSearchRange = k;
-				break ;
-			}
-		}
+		
+		typename List::iterator pos;
+		pos = std::find(mainChain.begin(), mainChain.end(), winners[idx]);
+		
+		size_t maxSearchRange = static_cast<size_t>(pos - mainChain.begin());
+		// size_t maxSearchRange = 0;
+		// for (size_t k = 0; k < mainChain.size(); k++)
+		// {
+		// 	if (mainChain[k] == winners[idx])
+		// 	{
+		// 		maxSearchRange = k;
+		// 		break ;
+		// 	}
+		// }
 		binaryInsert(mainChain, pend[idx], maxSearchRange);
 	}
 	if (hasStraggler)
