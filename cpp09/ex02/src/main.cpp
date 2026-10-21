@@ -5,7 +5,7 @@ int	main(int ac, char **av)
 	try
 	{
 		if (ac < 2)
-			throw PmergeMe::Error("Error: No sequence provided.");
+			throw PmergeMe::Error("Error");
 		PmergeMe toOrder(ac, av);
 		toOrder.run();
 	}

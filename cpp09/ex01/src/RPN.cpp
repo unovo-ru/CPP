@@ -51,25 +51,27 @@ void	RPN::calculate(char op)
 {
 	if (_stack.size() < 2)
 		throw Error("Error");
-	int	a;
-	int	b;
-	int	res = 0;
+	int			a;
+	int			b;
+	long long	res = 0;
 	b = _stack.top();
 	_stack.pop();
 	a = _stack.top();
 	_stack.pop();
 	if (op == '+')
-		res = a + b;
+		res = static_cast<long long>(a)+ b;
 	else if (op == '-')
-		res = a - b;
+		res = static_cast<long long>(a)- b;
 	else if (op == '*')
-		res = a * b;
+		res = static_cast<long long>(a)* b;
 	else if (op == '/')
 	{
-		if (b == 0)
+		if (b == 0 || (a == -2147483648 && b == -1))
 			throw Error("Error");
-		res = a / b;
+		res = static_cast<long long>(a) / b;
 	}
+	if (res > 2147483647 || res < -2147483648)
+		throw Error("Error");
 	_stack.push(res);
 }
 

@@ -11,13 +11,15 @@ BitcoinExchange::BitcoinExchange(const std::string &dataBase)
 	if (!db)
 		throw Error("Error: could not open database file.");
 	std::string	buffer;
-	std::getline(db, buffer); 	//esto sirve para un descarte rapido de la
-								//primera linea "date,exchange_rate"
+	if (!std::getline(db, buffer))					//esto sirve para un descarte rapido de la
+		throw Error("Error: corrupted data base.");	//primera linea "date,exchange_rate"
 	while (std::getline(db, buffer))
 	{
 		/*AÑADIR PARSEO:
 		el dato tiene que estar bien ingresado y tiene un formato
 		date,value*/
+		if (buffer.empty())
+			continue ;
 		size_t	dot = buffer.find(",");
 		if (dot == std::string::npos)	//me aseguro de que si no encuentra la coma devuelva error
 			throw Error("Error: corrupted data base.");
@@ -25,6 +27,8 @@ BitcoinExchange::BitcoinExchange(const std::string &dataBase)
 		float	value = atof(buffer.substr(dot + 1, buffer.length() - (dot + 1)).c_str());
 		_mapKey[date] = value;
 	}
+	if (_mapKey.empty())
+		throw Error("Error: empty database.");
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other): _mapKey(other._mapKey) {}
@@ -61,7 +65,7 @@ void	BitcoinExchange::parseFormat(const std::string &date)
 	for (size_t i = 0; i < date.length(); i++)
 		if (i != 4 && i != 7)
 			if (!isdigit(date[i]))
-				throw Error("Error: invalid format in the date.");
+				throw Error("Error: bad input => " + date);
 		
 }
 
@@ -114,7 +118,7 @@ void	BitcoinExchange::parseNumbers(const std::string &date)
 	}
 }
 
-void	BitcoinExchange::parseBitcoin(const std::string &date, const std::string &bitcoin)
+void	BitcoinExchange::parseBitcoin(const std::string &bitcoin)
 {
 	/*PARSEA QUE PARA QUE LOS NUMEROS NO SE VAYAN DE MADRE
 	NO HAYA NINGUNO IGUAL O MAYOR A 1000*/
@@ -124,7 +128,7 @@ void	BitcoinExchange::parseBitcoin(const std::string &date, const std::string &b
 	// std::string	date = value.substr(0, bit);
 	// std::string	bitcoin = value.substr(bit + 3, value.length() - (bit + 3));
 	if (bitcoin.empty())
-		throw Error("Error: bad input => " + date);
+		throw Error("Error: bad input => " + bitcoin);
 	bool	point = false;
 	for (size_t i = 0; i < bitcoin.length(); i++)
 	{
@@ -141,7 +145,7 @@ void	BitcoinExchange::parseBitcoin(const std::string &date, const std::string &b
 			point = true;
 			continue ;
 		}
-		throw Error("Error: bad input => " + date);
+		throw Error("Error: bad input => " + bitcoin);
 	}
 	/*para este momento todo es un numero y si acaso un solo punto*/
 	float	bitcoinVal = atof(bitcoin.c_str());
@@ -179,7 +183,8 @@ float	BitcoinExchange::getRate(const std::string &date) const
 	
 		fist		--> std::string
 		second		--> float*/
-
+	if (_mapKey.empty())
+		throw Error("Error: empty database.");
 	std::map<std::string, float>::const_iterator	it;
 	it = _mapKey.lower_bound(date);
 	if (it != _mapKey.end() && it->first == date)
@@ -207,7 +212,7 @@ void	BitcoinExchange::parse(const std::string &input)
 	std::string	date = input.substr(0, bit);
 	std::string	bitcoin = input.substr(bit + 3, input.length() - (bit + 3));
 	parseDate(date);
-	parseBitcoin(date, bitcoin);
+	parseBitcoin(bitcoin);
 	float	rate = getRate(date);
 	float	bitcoinValue = rate * atof(bitcoin.c_str());
 	std::cout	<< date << " => " << bitcoin << " = "
@@ -216,7 +221,7 @@ void	BitcoinExchange::parse(const std::string &input)
 
 /*-----------OCF ERROR EXCEPTION-----------*/
 
-BitcoinExchange::Error::Error(): std::exception(), _message(""){}
+BitcoinExchange::Error::Error(): std::exception(), _message("") {}
 
 BitcoinExchange::Error::Error(const Error &other) : std::exception(other), _message(other._message){}
 
