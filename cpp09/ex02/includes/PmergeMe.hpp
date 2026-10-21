@@ -86,6 +86,7 @@ LA CONCLUSION LOGICA:
 # include <deque>
 # include <limits>
 # include <memory>
+# include <cstdlib>
 
 class PmergeMe
 {
